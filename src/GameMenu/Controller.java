@@ -17,9 +17,6 @@ public class Controller extends JFrame {
     private Controller controller = this;
     private CardLayout cards; //The var that control the windows change.
     private HomeWindow homeWindow;
-    private LevelsWindow levelsWindow;
-    private EditorWindow editorWindow;
-    private GameEditor gameEditor;
     private Game gameWindow;
     private Vector<Level> levelsDB; //DB of all the game levels.
     private Integer openLevel; //The number of the running level.
@@ -45,13 +42,9 @@ public class Controller extends JFrame {
         levelsDB = DataBase.Serializer.deserialize(); //Get all the levels from the DB file.
 
         homeWindow = new HomeWindow(this);
-        levelsWindow = new LevelsWindow(this);
-        editorWindow = new EditorWindow(this);
 
         // add the windows to the card layout.
         getContentPane().add(homeWindow, "Home");
-        getContentPane().add(levelsWindow, "Select level");
-        getContentPane().add(editorWindow, "Editor");
 
         cards = (CardLayout) getContentPane().getLayout();
         cards.show(getContentPane(), "Home"); //show now the home window.
@@ -123,7 +116,7 @@ public class Controller extends JFrame {
             else if(selected == 1){ //select another level
                 stop=true;
                 openLevel=null;
-                levelsWindow.addLevelChoosePanel(); //Add again the levels for the levels window, maybe the best time changed.
+                homeWindow.addLevelChoosePanel(); //Add again the levels for the levels window, maybe the best time changed.
                 cards.show(getContentPane(),"Select level");
                 gameWindow = null;
             }
@@ -152,39 +145,11 @@ public class Controller extends JFrame {
      */
     public class menuPress implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if(e.getActionCommand().equals("Select level")){
-                levelsWindow.addLevelChoosePanel();
-                cards.show(getContentPane(), "Select level");
-            }
-            else if(e.getActionCommand().equals("Editor")){
-                cards.show(getContentPane(), "Editor");
-            }
-            else if(e.getActionCommand().equals("Add new level")){
-                if(gameEditor!=null){
-                    getContentPane().remove(gameEditor);
-                }
-                gameEditor = new GameEditor(controller);
-                getContentPane().add(gameEditor, "Game Editor");
-                cards.show(getContentPane(), "Game Editor");
-            }
-            else{
+            if(e.getActionCommand().equals("Home")){
+                homeWindow.addLevelChoosePanel();
                 cards.show(getContentPane(), "Home");
             }
         }
-    }
-
-    /**
-     * saves the level that edited and return the editor window.
-     * @param newLevel the new level that created.
-     */
-    public void saveAndReturnToEditor(Level newLevel){
-        if(levelsDB == null){
-            levelsDB = new Vector<>(); //if there is no levels, create the DB to insert the first.
-        }
-        levelsDB.add(newLevel); //save the new level to the DB.
-        editorWindow.addLevelChoosePanel();
-        cards.show(getContentPane(), "Editor");
-        gameEditor = null;
     }
 
     /**
@@ -204,40 +169,10 @@ public class Controller extends JFrame {
         if(gameWindow!=null){ //remove the last game window.
             getContentPane().remove(gameWindow);
         }
-        Level level = levelsDB.elementAt(levelSlot); //get the wanted level from the DB by number.
-        Block[] blocks = new Block[level.blocks.length];
-        for(int i=0;i<blocks.length;i++){ //convert the blocks from multi array to blocks array.
-            Double dx = (Double)level.blocks[i][0];
-            int x = dx.intValue()+1;
-            Double dy = (Double)level.blocks[i][1];
-            int y = dy.intValue()+1;
-            Double dlength = (Double)level.blocks[i][2];
-            int length = dlength.intValue();
-            String dir = (String)level.blocks[i][3];
-            Boolean target = (Boolean)level.blocks[i][4];
-            blocks[i] = new Block(x,y,length,dir,target);
-        }
-        gameWindow = new Game(controller,blocks,level.bestTime); //create a new game.
+        gameWindow = new Game(controller,levelsDB.elementAt(levelSlot)); //create a new game.
         openLevel = levelSlot;
         getContentPane().add(gameWindow, "Game");
         cards.show(getContentPane(), "Game"); //show the game window.
-    }
-
-    /**
-     * Action listener to remove a new game.
-     */
-    public class removeLevelPress implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            String[] options = { "Confirm", "Cancel" };
-            JPanel panel = new JPanel();
-            panel.add(new JLabel("Are you sure you want to delete this level?"), BorderLayout.CENTER);
-            int selected = JOptionPane.showOptionDialog(controller,panel,"Confirmation", JOptionPane.YES_NO_OPTION, //show confirm dialog.
-                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            if(selected == JOptionPane.YES_OPTION){ //if want to remove.
-                levelsDB.removeElementAt(Integer.parseInt(e.getActionCommand())); //remove the level from the DB.
-                editorWindow.addLevelChoosePanel(); //show the levels again.
-            }
-        }
     }
 
 }

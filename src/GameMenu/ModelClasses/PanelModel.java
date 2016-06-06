@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class PanelModel extends JSplitPane {
 
-    private final int dividerLocation = 350; //location of the divider.
+    private final int dividerLocation = 651; //location of the divider.
     protected JPanel mainPanel;
     protected JPanel menuPanel;
 
@@ -18,12 +18,12 @@ public class PanelModel extends JSplitPane {
     public PanelModel(){
         super(JSplitPane.HORIZONTAL_SPLIT);
         setDividerLocation(dividerLocation);
-        this.setPreferredSize(new Dimension(520, 350));
-        this.setDividerSize(4);
+        this.setPreferredSize(new Dimension(820,650));
+        this.setDividerSize(3);
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.BLACK);
-        menuPanel = new JPanelWithBackground("design\\backPirate.jpg");
-        menuPanel.setLayout(new GridLayout(8, 1));
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(15, 1));
         menuPanel.setBackground(Color.BLACK);
         setRightComponent(menuPanel);
         setLeftComponent(mainPanel);

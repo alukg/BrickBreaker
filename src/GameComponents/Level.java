@@ -6,12 +6,12 @@ package GameComponents;
 public class Level
 {
     //Variables
-    public Object[][] blocks;
+    public int[][] bricks;
     public String bestTime;
 
     //Constructors
-    public Level(Object[][] blocks, String bestTime){
+    public Level(int[][] bricks, String bestTime){
         this.bestTime = bestTime;
-        this.blocks = blocks;
+        this.bricks = bricks;
     }
 }

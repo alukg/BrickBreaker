@@ -50,7 +50,7 @@ public class Game extends PanelModel implements ActionListener
 		this.controller = controller;
 		undo = new JButtonWithIcon("design\\UndoPirate.jpg");
 		selectLevel = new JButtonWithIcon("design\\returnPirate.jpg");
-		selectLevel.setActionCommand("Select level");
+		selectLevel.setActionCommand("Home");
 		selectLevel.addActionListener(this);
 		selectLevel.addActionListener(controller.new menuPress());
 		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime,SwingConstants.CENTER);
