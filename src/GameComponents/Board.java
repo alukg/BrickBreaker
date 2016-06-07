@@ -1,469 +1,147 @@
 package GameComponents;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.util.Stack;
+import java.awt.event.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * The class that represents the board in the game.
  */
-public class Board extends JPanel implements MouseListener , KeyListener
+public class Board extends JPanel implements Runnable, MouseMotionListener, KeyListener
 {
 	//Variables
 	private Game game;
-	private Block selected;
-	private Block[] allBlocks;
-	private int[][] arrBoard;
-	private EmptySpace[][] labels;
-	private final int size = 6;
-	private final int finishi = 3;
-	private final int finishj = 6;
-	private Stack<Object[]> lastMove;
+	private int ballx = 319;
+	private int bally = 578;
 
-	private ImageIcon freeSpaceIcon = new ImageIcon("design//emptySpaceTrans.png");
-	private ImageIcon horizontal2shipIcon = new ImageIcon("design/ships/horizontal2ship.png");
-	private ImageIcon horizontal3shipIcon = new ImageIcon("design/ships/horizontal3ship.png");
-	private ImageIcon vertical2shipIcon = new ImageIcon("design/ships/vertical2ship.png");
-	private ImageIcon vertical3shipIcon = new ImageIcon("design/ships/vertical3ship.png");
-	private ImageIcon targetShipIcon = new ImageIcon("design/ships/targetShip.png");
+	private int batx = 250;
+	private int baty = 590;
 
-	private Image boardBackground;
+	private Rectangle ball = new Rectangle(ballx,bally,12,12);
+	private Rectangle bat = new Rectangle(batx,baty,80,10);
+
+	private boolean GameFinished = false;
+	private boolean ballFallDown = false;
+	private boolean ballMove = false;
+	private int count = 0;
+	private int movey = -1;
+	private int movex = 1;
+
+	Rectangle[] bricks = new Rectangle[80];
 
 	//Constructors
-	public Board(Game game, Block[] allBlocks)
+	public Board(Game game)
 	{
-		this.lastMove = new Stack<Object[]>();
 		this.game = game;
-		this.setLayout(new GridBagLayout());
-		this.setSize(350, 350);
-		this.setBackground(new Color(24, 99, 131));
-		this.allBlocks = new Block[allBlocks.length];
-		for (int i = 0; i < allBlocks.length; i++) {
-			this.allBlocks[i] = new Block(allBlocks[i]);
+		for(int i=0;i<bricks.length;i++){
+			bricks[i] = new Rectangle(75+(i%10)*50,80+(i/10)*20,45,15);
 		}
-		this.selected = this.allBlocks[0];
-		CreateFrame(this.size, this.allBlocks);
-		AddBlocks(this.allBlocks);
-		this.selected.setFocusable(true);
-		this.selected.requestFocus();
-
-		//Add background to the panel
-		File file = new File("design\\boardBackground.png");
-		try {
-			boardBackground = ImageIO.read(file);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		this.addKeyListener(this);
+		this.addMouseMotionListener(this);
 	}
 
+	public void paint (Graphics g){
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(0,0,649,600);
+		g.setColor(Color.blue);
+		g.fillOval(ball.x, ball.y, ball.width, ball.height);
+		g.setColor(Color.BLACK);
+		g.fill3DRect(bat.x, bat.y, bat.width, bat.height, true);
+		g.setColor(Color.GRAY);
+		g.fillRect(0,600,650,50);
+		g.setColor(Color.BLACK);
+		g.drawRect(0,0,649,600);
 
-	
-	public Board(Board b)
-	{
-		new Board(b.getGame() , b.getAllBlocks());
-	}
-	public Game getGame() {
-		return game;
-	}
-
-	public int getFinishj() 
-	{
-		return finishj;
-	}
-	public int getfinishi() {
-		return finishi;
-	}
-
-	public int getBoardSize() {
-		return size;
-	}
-	public Block getSelected() {
-		return selected;
-	}
-
-	public void setSelected(Block selected) {
-		this.selected = selected;
-	}
-
-	public Block[] getAllBlocks()
-	{
-		Block[] ans = new Block[this.allBlocks.length];
-		for (int i = 0; i < ans.length; i++)
-		{
-			ans[i] = new Block(this.allBlocks[i]);
-		}
-		return ans;
-	}
-
-	public void setAllBlocks(Block[] allBlocks) {
-		this.allBlocks = allBlocks;
-	}
-
-	public int[][] getArrBoard() {
-		return arrBoard;
-	}
-
-	public void setArrBoard(int[][] arrBoard)
-	{
-		this.arrBoard = arrBoard;
-	}
-
-
-	public Stack<Object[]> getLastMove() 
-	{
-		return lastMove;
-	}
-	public void setLastMove(Stack<Object[]> lastMove) 
-	{
-		this.lastMove = lastMove;
-	}
-
-
-	public void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-		g.drawImage(boardBackground, 0, 0, null); // Draw the background image.
-	}
-
-	/**
-	 * The function sets the arrBoard with -2 for the border, - 1 for free places and numbers >-1 for blocks.
-	 ***/
-	private void CreateFrame(int size , Block[] allBlocks)
-	{
-		this.arrBoard = new int[size+2][size+2];
-		for(int i = 0; i < size+2; i++)
-		{
-			for (int j = 0; j < size+2; j++)
-			{
-				if(i == 0 || j== 0 || i == size+1 || j == size+1)
-					this.arrBoard[i][j] = -2;
-				else
-					this.arrBoard[i][j] = -1;
-			}
-		}
-		for(int i = 0; i < this.allBlocks.length; i++)
-		{
-			Block tmp = this.allBlocks[i];
-			int x = tmp.getMy_x();
-			int y = tmp.getMy_y();
-			for(int j = 0; j < tmp.getMy_length(); j++)
-			{
-				if(tmp.getMy_dir().equals("Horizontal"))
-				{
-					this.arrBoard[y][x + j] = i;
-				}
-				else
-				{
-					this.arrBoard[y + j][x] = i;
-				}
+		for (int i=0;i<bricks.length;i++){
+			if(bricks[i] != null){
+				g.fill3DRect(bricks[i].x, bricks[i].y, bricks[i].width, bricks[i].height, true);
 			}
 		}
 	}
 
-	/*private void PrintArray(int[][] arr)
-	{
-		for(int i = 0; i < arr.length; i++)
-		{
-			for (int j = 0; j < arr[0].length; j++)
-			{
-				System.out.print(arr[i][j]+ " ");
-			}
-			System.out.println();
-		}
-	}*/
+	public void run() {
+		while (!GameFinished) {
+			//if(ballMove){
 
-	/**
-	 * The function add all the blocks and free spaces in the board.
-	 ***/
-	private void AddBlocks(Block[] allBlocks)
-	{
-		this.labels = new EmptySpace[this.size][this.size];
-		for(int i= 0; i < this.size; i++)
-		{
-			for (int j = 0; j < this.size; j++)
-			{
-				labels[i][j] = new EmptySpace();
-			}
-		}
-		GridBagConstraints gbc;
-		for (int i = 1; i < this.size+1; i++)
-		{
-			for (int j = 1; j < this.size+1; j++)
-			{
-				if(this.arrBoard[i][j] == -1)
-				{
-					gbc = new GridBagConstraints();
-					//if( j == this.finishj && i == this.finishi)
-					//{
-						//labels[i-1][j-1].setText("--->");
-					//}
-					//else
-
-					gbc.gridx = j;
-					gbc.gridy = i;
-					this.add(labels[i-1][j-1], gbc);
-				}
-				
-			}
-		}
-		for (int i = 0; i < this.allBlocks.length; i++) 
-		{
-
-			gbc = new GridBagConstraints();
-			JLabel toAdd = new Block(this.allBlocks[i]);
-			gbc.gridx = ((Block)(toAdd)).getMy_x();
-			gbc.gridy = ((Block)(toAdd)).getMy_y();
-			if(((Block)(toAdd)).getMy_dir().equals("Horizontal"))
-			{
-				gbc.gridwidth = ((Block)(toAdd)).getMy_length();
-				gbc.fill = GridBagConstraints.HORIZONTAL;
-				if(((Block)(toAdd)).getMy_target()) {
-					toAdd.setPreferredSize(new Dimension(116,58));
-					toAdd.setIcon(targetShipIcon);
-					//toAdd.setBorder(BorderFactory.createLineBorder(Color.green));
-				}
-				else
-				{
-					if(gbc.gridwidth == 3) {
-						toAdd.setPreferredSize(new Dimension(174, 58));
-						toAdd.setIcon(horizontal3shipIcon);
-					}
-					else {
-						toAdd.setPreferredSize(new Dimension(116, 58));
-						toAdd.setIcon(horizontal2shipIcon);
+				for(int i=0;i<bricks.length;i++){
+					if(bricks[i]!=null){
+						if(bricks[i].intersects(ball)){
+							Rectangle2D r = bricks[i].createIntersection(ball);
+							if(r.getX()==bricks[i].getX() || r.getX()==(bricks[i].getX()+bricks[i].width-1)){
+								movex = -movex;
+							}
+							else{
+								movey = -movey;
+							}
+							bricks[i] = null;
+							break;
+						}
 					}
 				}
-			}
-			else
-			{
-				gbc.gridheight = ((Block)(toAdd)).getMy_length();
-				gbc.fill = GridBagConstraints.VERTICAL;
-				if(gbc.gridheight == 3) {
-					toAdd.setPreferredSize(new Dimension(58, 174));
-					toAdd.setIcon(vertical3shipIcon);
+
+				repaint();
+
+				ball.x = ball.x + movex;
+				ball.y = ball.y + movey;
+
+				if (ball.x <= 0 || ball.x + ball.width >= 649) {
+					movex = -movex;
 				}
-				else {
-					toAdd.setPreferredSize(new Dimension(58, 116));
-					toAdd.setIcon(vertical2shipIcon);
+				if (ball.y <= 0) {
+					movey = -movey;
 				}
-			}
-			toAdd.addMouseListener(this);
-			toAdd.addKeyListener(this);
-			this.add(toAdd, gbc);
-			//this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
+				if (ball.y >= 600) {
+					ballFallDown = true;
+					//Function to show the ball again
+				}
+				if(ball.intersects(bat)){
+					Rectangle2D r = bat.createIntersection(ball);
+					if(r.getY()<=590)
+						movey = movey*-1;
+				}
+				try {
+					Thread.sleep(5);
+				} catch (Exception e) {
+
+				}
+			//}
 		}
 	}
 
-
-	/**
-	 * The function for the undo button.
-	 ***/
-	public void undoFunction()
-	{
-			if(!(this.lastMove.isEmpty()))
-			{
-			Object[] tmp = this.lastMove.pop();
-				this.selected.setBorder(null);
-			setSelected((Block)tmp[0]);
-				this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
-			String dirToGo = (String)tmp[1];
-			if(dirToGo.equals("up"))
-				dirToGo = "down";
-			else if(dirToGo.equals("down"))
-				dirToGo = "up";
-			else if(dirToGo.equals("left"))
-				dirToGo = "right";
-			else if(dirToGo.equals("right"))
-				dirToGo = "left";
-			MoveBlock(dirToGo);
-				this.selected.setFocusable(true);
-				this.selected.requestFocus();
-			}
-			else
-			{
-				/*JPanel panel = new JPanel();
-				String dialogString = "<html><center>There are no undo moves</center></html>";
-				panel.add(new JLabel("dialogString"));
-				JOptionPane.showOptionDialog(this,panel,"", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null);*/
-				//System.out.println("There are no last moves");
-			}
-		}
-	/**
-	 * The function checks if the movement is legal and operate the movement .
-	 * @parm  dir saves which direction the selected block should move.
-	 * @return whether the movement was done or not
-	 ***/
-	public boolean MoveBlock(String dir)
-	{
-		boolean moveDone = false;
-		int i = this.selected.getMy_y();
-		int j = this.selected.getMy_x();
-		int blockNum = this.arrBoard[i][j];
-		int length = this.selected.getMy_length();
-		String dirHorOrVer = this.selected.getMy_dir();
-		if(dir.equals("right") && dirHorOrVer.equals("Horizontal") && this.arrBoard[i][j+length] == -1)
-		{
-				this.arrBoard[i][j] = -1;
-				this.arrBoard[i][j+length] = blockNum;
-				this.remove(selected);
-				this.selected.moveRight();
-				this.remove(this.labels[i-1][j+length-1]);
-				GridBagConstraints gbc = new GridBagConstraints();
-				gbc.gridx = j;
-				gbc.gridy = i;
-				this.add(this.labels[i-1][j-1],gbc);
-				gbc.gridx = j+1;
-				gbc.gridy = i;
-				gbc.gridwidth = length;
-				this.add(this.selected, gbc);
-				moveDone = true;
-		}
-		if(dir.equals("left") &&  dirHorOrVer.equals("Horizontal") && this.arrBoard[i][j-1] == -1)
-		{
-		this.arrBoard[i][j+length-1] = -1;
-		this.arrBoard[i][j-1] = blockNum;
-		this.remove(selected);
-		this.selected.moveLeft();
-		this.remove(this.labels[i-1][j-1-1]);
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = j+length-1;
-		gbc.gridy = i;
-		this.add(this.labels[i-1][j+length-1-1],gbc);
-		gbc.gridx = j-1;
-		gbc.gridy = i;
-		gbc.gridwidth = length;
-		this.add(this.selected, gbc);
-		moveDone = true;
-
-		}
-		if(dir.equals("up") && dirHorOrVer.equals("Vertical") && this.arrBoard[i-1][j] == -1)
-		{
-		this.arrBoard[i+length-1][j] = -1;
-		this.arrBoard[i-1][j] = blockNum;
-		this.remove(this.labels[i-1-1][j-1]);
-		this.remove(selected);
-		this.selected.moveUp();
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = j;
-		gbc.gridy = i+length -1;
-		this.add(this.labels[i+length-1-1][j-1],gbc);
-		gbc.gridx = j;
-		gbc.gridy = i-1;
-		gbc.gridheight = length;
-		gbc.fill = GridBagConstraints.VERTICAL;
-		this.add(this.selected, gbc);
-		moveDone = true;
-
-
-		}
-		if(dir.equals("down") && dirHorOrVer.equals("Vertical") && this.arrBoard[i+length][j] == -1)
-		{
-		this.arrBoard[i][j] = -1;
-		this.arrBoard[i+length][j] = blockNum;
-		this.remove(this.labels[i+length-1][j-1]);
-		this.remove(selected);
-		this.selected.moveDown();
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = j;
-		gbc.gridy = i;
-		this.add(this.labels[i-1][j-1],gbc);
-		gbc.gridx = j;
-		gbc.gridy = i+1;
-		gbc.gridheight = length;
-		gbc.fill = GridBagConstraints.VERTICAL;
-		this.add(this.selected, gbc);
-		moveDone = true;
-
-		}
-		if(this.arrBoard[finishi][finishj] > -1 && this.allBlocks[this.arrBoard[finishi][finishj]].getMy_target())
-		{
-			//System.out.println("Finish game");
-			this.game.Finish();
-		}
-		revalidate();
-		repaint();
-		return moveDone;
-		}
-	/**
-	 * The function change the selected block if the source is a block.
-	 * @parm  e saves the mouse event details.
-	 ***/
-	public void mouseClicked(MouseEvent e) 
-	{
-		if(e.getSource() instanceof Block)
-		{
-			this.selected.setBorder(BorderFactory.createEmptyBorder());
-			this.selected  = (Block)e.getSource();
-			this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
-			e.getComponent().setFocusable(true);
-			e.getComponent().requestFocus();
-		}
-		
-		}
 	@Override
-	public void mouseEntered(MouseEvent e) {}
-	@Override
-	public void mouseExited(MouseEvent e) {}
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-
-	/**
-	 * The function move the selected block by the key event if the keyCode is up/down/right/left and saves the move in the stack of all last moves.
-	 * @parm  e saves the key event details.
-	 ***/
-	public void keyPressed(KeyEvent e) 
+	public void keyPressed(KeyEvent event)
 	{
-		 int keyCode = e.getKeyCode();
-		 String dirToMove = "";
-		    switch( keyCode ) 
-		    { 
-		        case KeyEvent.VK_UP:
-		        	dirToMove = "up";
-
-		            break;
-		        case KeyEvent.VK_DOWN:
-		        	dirToMove="down";
-		        	break;
-		        case KeyEvent.VK_LEFT:
-		        	dirToMove="left";
-				    break;
-		        case KeyEvent.VK_RIGHT :
-		        	dirToMove="right";
-				    break;
-		    }
-		    if(MoveBlock(dirToMove))
-				{
-				Object[] toPush = new Object[2];
-				toPush[0] = this.selected;
-				toPush[1] = dirToMove;
-				this.lastMove.push(toPush);
-				}
-			e.getComponent().setFocusable(true);
-			e.getComponent().requestFocus();
+		int keyCode = event.getKeyCode();
+		if(keyCode == KeyEvent.VK_SPACE)
+		{
+			ballMove = true;
+		}
 	}
 
-	public void keyReleased(KeyEvent e) {}
-	public void keyTyped(KeyEvent e) {	}
-
-	/**
-	 * The private class that represents an empty space label.
-	 */
-	private class EmptySpace extends JLabel {
-
-		public EmptySpace(){
-			super();
-			setPreferredSize(new Dimension(58,58));
-			setIcon(freeSpaceIcon);
-		}
-
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 	}
-	
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		Point locationOnPanel = e.getPoint();
+		if (locationOnPanel.getX()<=570){
+			batx=(int)(locationOnPanel.getX());
+		}
+		else{
+			batx = 570;
+		}
+	}
 }

@@ -44,7 +44,7 @@ public class Game extends PanelModel implements ActionListener
 		mainPanel.setBackground(new Color(24,99,131));
 	}*/
 
-	public Game(Controller controller, Block[] b, String BestTime)
+	public Game(Controller controller)
 	{
 		this.BestTime= BestTime;
 		this.controller = controller;
@@ -65,11 +65,13 @@ public class Game extends PanelModel implements ActionListener
 		menuPanel.add(labelBestTime);
 		menuPanel.add(undo);
 		menuPanel.add(selectLevel);
-		this.board = new Board(this, b);
-		mainPanel.setLayout(null);
-		mainPanel.add(this.board);
+		this.board = new Board(this);
+		mainPanel.setLayout(new BorderLayout());
+		mainPanel.add(this.board,BorderLayout.CENTER);
 		this.time.start();
 
+		Thread thread = new Thread(board);
+		thread.start();
 
 	}
 	//Getters and Setters
@@ -113,19 +115,13 @@ public class Game extends PanelModel implements ActionListener
 		}
 		else
 		{
-			if(e.getSource() == undo)
+			if(e.getSource() == selectLevel)
 			{
-				this.board.undoFunction();
-			}
-			else
-			{
-				if(e.getSource() == selectLevel)
-				{
 					this.time.stop();
 					min = 0;
 					sec = 0;
-				}
 			}
+
 		}
 	}
 
