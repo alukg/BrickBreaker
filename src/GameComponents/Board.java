@@ -64,22 +64,20 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 	public void run() {
 		while (!gameFinished) {
-			//if(ballMove){
-
-				for(int i=0;i<bricks.length;i++){
-					if(bricks[i]!=null){
-						if(bricks[i].intersects(ball)){
+			if(ballMove){
+				for (int i = 0; i < bricks.length; i++) {
+					if (bricks[i] != null) {
+						if (bricks[i].intersects(ball)) {
 							Rectangle2D r = bricks[i].createIntersection(ball);
 
 							/***************************** checks *************************
-							System.out.println(bricks[i].getX() +" , " + bricks[i].getY() +" , " + bricks[i].width +" , " + bricks[i].height);
-							System.out.println(r.getX() +" , "+r.getY());
-							**************************************************************/
+							 System.out.println(bricks[i].getX() +" , " + bricks[i].getY() +" , " + bricks[i].width +" , " + bricks[i].height);
+							 System.out.println(r.getX() +" , "+r.getY());
+							 **************************************************************/
 
-							if((r.getX()==bricks[i].getX() || r.getX()==(bricks[i].getX()+bricks[i].width-1)) && (r.getY()<=bricks[i].getY()+bricks[i].height-2 && r.getY()>bricks[i].getY())){
+							if ((r.getX() == bricks[i].getX() || r.getX() == (bricks[i].getX() + bricks[i].width - 1)) && (r.getY() <= bricks[i].getY() + bricks[i].height - 2 && r.getY() > bricks[i].getY())) {
 								movex = -movex;
-							}
-							else{
+							} else {
 								movey = -movey;
 							}
 							bricks[i] = null;
@@ -107,17 +105,17 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 					ballFallDown = true;
 					//Function to show the ball again
 				}
-				if(ball.intersects(bat)){
+				if (ball.intersects(bat)) {
 					Rectangle2D r = bat.createIntersection(ball);
-					if(r.getY()<=590)
-						movey = movey*-1;
+					if (r.getY() <= 590)
+						movey = movey * -1;
 				}
-				try {
-					Thread.sleep(5);
-				} catch (Exception e) {
+			}
+			try {
+				Thread.sleep(5);
+			} catch (Exception e) {
 
-				}
-			//}
+			}
 		}
 		game.finish();
 	}
@@ -125,6 +123,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	@Override
 	public void keyPressed(KeyEvent event)
 	{
+		System.out.println("Key Pressed");
 		int keyCode = event.getKeyCode();
 		if(keyCode == KeyEvent.VK_SPACE)
 		{
@@ -148,13 +147,22 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		Point locationOnPanel = e.getPoint();
-		if (locationOnPanel.getX()<=570){
-			batx=(int)(locationOnPanel.getX());
-		}
-		else{
-			batx = 570;
+	public void mouseMoved(MouseEvent e)
+	{
+
+		e.getComponent().setFocusable(true);
+		e.getComponent().requestFocus();
+		if(ballMove)
+		{
+			Point locationOnPanel = e.getPoint();
+			System.out.println("Mouse location is " + locationOnPanel.getX());
+			if (locationOnPanel.getX() <= 570) {
+				bat.x = (int) (locationOnPanel.getX());
+				repaint();
+			} else {
+				batx = 570;
+			}
 		}
 	}
+
 }
