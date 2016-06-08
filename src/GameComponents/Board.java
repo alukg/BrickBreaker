@@ -15,7 +15,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private int ballx = 319;
 	private int bally = 578;
 
-	private int batx = 250;
+	private int batx = 285;
 	private int baty = 590;
 
 	private Rectangle ball = new Rectangle(ballx,bally,12,12);
@@ -149,7 +149,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-
 		e.getComponent().setFocusable(true);
 		e.getComponent().requestFocus();
 		if(ballMove)
