@@ -60,7 +60,7 @@ public class Controller extends JFrame {
                     bricks[rows][cols] = Integer.parseInt(string.charAt(rows*10+cols)+"");
                 }
             }
-            levelsDB.addElement(new Level(bricks,"--:--"));
+            levelsDB.addElement(new Level(bricks,null));
         }
         */
 
@@ -85,57 +85,38 @@ public class Controller extends JFrame {
 
     /**
      * Run when the game finished, show and save the best time. gives the option what to do next.
-     * @param thisTime the last time of the level.
-     * @param bestTime the best time of the level.
+     * @param thisScore the last time of the level.
+     * @param bestScore the best time of the level.
      */
-    public void gameFinished(String thisTime, String bestTime){
-        String newBestTime;
-        if(bestTime.equals("--:--")){ //if there is no best time.
-            newBestTime=thisTime;
+    public void gameFinished(Integer thisScore, Integer bestScore){
+        int newBestScore;
+        if(bestScore == null){ //if there is no best time.
+            newBestScore=thisScore;
         }
         else{ //if there is best time, check which is better.
-            String[] thisTimeSplit = thisTime.split(":");
-            String[] bestTimeSplit = bestTime.split(":");
-            if(Integer.parseInt(thisTimeSplit[0])<Integer.parseInt(bestTimeSplit[0])) //if the minutes of the last time is lower.
-                newBestTime=thisTime;
-            else if(Integer.parseInt(thisTimeSplit[0])>Integer.parseInt(bestTimeSplit[0])) //if the minutes of the last time is higher.
-                newBestTime=bestTime;
-            else{ //if the minutes of the last time and best time is even.
-                if(Integer.parseInt(thisTimeSplit[1])<Integer.parseInt(bestTimeSplit[1])) //if the seconds of the last time is lower.
-                    newBestTime=thisTime;
-                else if(Integer.parseInt(thisTimeSplit[1])>Integer.parseInt(bestTimeSplit[1])) //if the seconds of the last time is higher.
-                    newBestTime=bestTime;
-                else //if the time fo both is even, it doesn't matter what to set.
-                    newBestTime=thisTime;
-            }
+            newBestScore = Math.max(thisScore,bestScore);
         }
-        levelsDB.elementAt(openLevel).bestTime=newBestTime; //set the new best time.
+        levelsDB.elementAt(openLevel).bestScore = newBestScore; //set the new best score.
         boolean stop = false;
         while(!stop){ //while not pressed good option on the dialog.
-            String[] options = { "Back to Main menu", "Select another level", "Next level" };
+            String[] options = { "Back to Main menu", "Next level" };
             JPanel panel = new JPanel();
             String dialogString;
-            if(newBestTime.equals(thisTime))
-                dialogString = "<html><center>Congradulations! New record!<br/>Best time: "+newBestTime+"<br/>Your time: "+thisTime+"</center></html>";
+            if(newBestScore == thisScore)
+                dialogString = "<html><center>Congradulations! New record!<br/>Best Score: "+newBestScore+"<br/>Your Score: "+thisScore+"</center></html>";
             else //if the last time wasn't record.
-                dialogString = "<html><center>Congradulations! Successfully complete this level<br/>Best time: "+newBestTime+"<br/>Your time: "+thisTime+"</center></html>";
+                dialogString = "<html><center>Congradulations! Successfully complete this level<br/>Best Score: "+newBestScore+"<br/>Your Score: "+thisScore+"</center></html>";
             panel.add(new JLabel(dialogString), BorderLayout.CENTER);
             int selected = JOptionPane.showOptionDialog(controller,panel,"", JOptionPane.DEFAULT_OPTION,
                     JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
             if(selected == 0){ //back to main menu
                 stop = true;
                 openLevel=null;
-                cards.show(getContentPane(),"Home");
+                homeWindow.addLevelChoosePanel();
+                cards.show(getContentPane(),"Home"); //Add again the levels for the levels window, maybe the best time changed.
                 gameWindow = null;
             }
-            else if(selected == 1){ //select another level
-                stop=true;
-                openLevel=null;
-                homeWindow.addLevelChoosePanel(); //Add again the levels for the levels window, maybe the best time changed.
-                cards.show(getContentPane(),"Select level");
-                gameWindow = null;
-            }
-            else if(selected==2){ //select next level
+            else if(selected==1){ //select next level
                 if(openLevel==levelsDB.size()-1){ //if this is the last level, show information dialog.
                     String[] ok = {"Ok"};
                     JPanel panel2 = new JPanel();
