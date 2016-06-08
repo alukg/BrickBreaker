@@ -23,10 +23,10 @@ public class Game extends PanelModel implements ActionListener
 	private JLabel labelTimer;
 	JButton homeButton;
 
-	public Game(Controller controller /* , Level level */)
+	public Game(Controller controller, Level level)
 	{
 		this.controller = controller;
-		// this.bestTime = level.bestTime;
+		this.bestTime = level.bestTime;
 
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
 		labelTimer.setForeground(Color.WHITE);
@@ -45,7 +45,7 @@ public class Game extends PanelModel implements ActionListener
 		homeButton.addActionListener(controller.new menuPress());
 		menuPanel.add(homeButton);
 
-		this.board = new Board(this);
+		this.board = new Board(this, level.bricks);
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.add(this.board,BorderLayout.CENTER);
 		this.time.start();

@@ -1,6 +1,5 @@
 package GameMenu;
 
-import GameComponents.Block;
 import GameComponents.Game;
 import GameComponents.Level;
 
@@ -10,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class Controller extends JFrame {
@@ -48,6 +48,21 @@ public class Controller extends JFrame {
 
         cards = (CardLayout) getContentPane().getLayout();
         cards.show(getContentPane(), "Home"); //show now the home window.
+
+        /* add new levels
+        levelsDB.removeAllElements();
+        Scanner reader = new Scanner(System.in);
+        for(int i=0;i<4;i++){
+            int[][] bricks = new int[8][10];
+            String string = reader.nextLine();
+            for(int rows=0;rows<8;rows++){
+                for(int cols=0;cols<10;cols++){
+                    bricks[rows][cols] = Integer.parseInt(string.charAt(rows*10+cols)+"");
+                }
+            }
+            levelsDB.addElement(new Level(bricks,"--:--"));
+        }
+        */
 
         pack();
         this.setVisible(true); //show the frame.
@@ -169,7 +184,7 @@ public class Controller extends JFrame {
         if(gameWindow!=null){ //remove the last game window.
             getContentPane().remove(gameWindow);
         }
-        gameWindow = new Game(controller /*,levelsDB.elementAt(levelSlot) */); //create a new game.
+        gameWindow = new Game(controller,levelsDB.elementAt(levelSlot)); //create a new game.
         openLevel = levelSlot;
         getContentPane().add(gameWindow, "Game");
         cards.show(getContentPane(), "Game"); //show the game window.

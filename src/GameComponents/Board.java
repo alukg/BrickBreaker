@@ -28,14 +28,16 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private int movey = -1;
 	private int movex = 1;
 
-	Rectangle[] bricks = new Rectangle[80];
+	Brick[] bricks = new Brick[80];
 
 	//Constructors
-	public Board(Game game)
+	public Board(Game game, int[][] bricks)
 	{
 		this.game = game;
-		for(int i=0;i<bricks.length;i++){
-			bricks[i] = new Rectangle(75+(i%10)*50,80+(i/10)*20,45,15);
+		for(int row=0;row<8;row++){
+			for(int col=0;col<10;col++){
+				this.bricks[row*10+col] = new Brick(75+col*50,80+row*20,45,15,bricks[row][col]);
+			}
 		}
 		this.addKeyListener(this);
 		this.addMouseMotionListener(this);
@@ -55,6 +57,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 		for (int i=0;i<bricks.length;i++){
 			if(bricks[i] != null){
+				g.setColor(bricks[i].getColor());
 				g.fill3DRect(bricks[i].x, bricks[i].y, bricks[i].width, bricks[i].height, true);
 			}
 		}
@@ -68,7 +71,13 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 					if(bricks[i]!=null){
 						if(bricks[i].intersects(ball)){
 							Rectangle2D r = bricks[i].createIntersection(ball);
-							if(r.getX()==bricks[i].getX() || r.getX()==(bricks[i].getX()+bricks[i].width-1)){
+
+							/***************************** checks *************************
+							System.out.println(bricks[i].getX() +" , " + bricks[i].getY() +" , " + bricks[i].width +" , " + bricks[i].height);
+							System.out.println(r.getX() +" , "+r.getY());
+							**************************************************************/
+
+							if((r.getX()==bricks[i].getX() || r.getX()==(bricks[i].getX()+bricks[i].width-1)) && (r.getY()<=bricks[i].getY()+bricks[i].height-2 && r.getY()>bricks[i].getY())){
 								movex = -movex;
 							}
 							else{
