@@ -22,7 +22,7 @@ public class Game extends PanelModel implements ActionListener
 	private static int min=0,sec=0;
 	private JLabel labelTimer;
 	JButton homeButton;
-	private int count = 0;
+	private static int count = 0;
 
 	public Game(Controller controller, Level level)
 	{
@@ -106,7 +106,7 @@ public class Game extends PanelModel implements ActionListener
 		}
 	}
 
-	public void addOneForCounter(){
+	public static void addOneForCounter(){
 		count++;
 	}
 

@@ -1,21 +1,25 @@
 package GameComponents;
 
+import com.sun.org.apache.bcel.internal.classfile.Visitor;
+
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * The class that represents a block in the game.
  *
  */
-public class Brick extends Rectangle
+abstract class Brick extends Rectangle implements GameComponents.Visitor
+
 {
 	//Variables
-	private Color color;
+	protected Color color;
 	
 	//Constructors
-	public Brick(int x, int y, int width, int height, int type)
+	protected Brick(int x, int y, int width, int height)
 	{
 		super(x,y,width,height);
-		switch (type)
+		/*switch (type)
 		{
 			case 0:
 				color = Color.BLACK;
@@ -41,16 +45,27 @@ public class Brick extends Rectangle
 			case 7:
 				color = Color.MAGENTA;
 				break;
-		}
+		}*/
 	}
 
-	public Brick(Brick b)
+	/*public Brick(Brick b)
 	{
 		 super(b.x, b.y, b.width, b.height);
 		 this.color = b.color;
+	}*/
+
+	public Color getColor()
+	{
+		return this.color;
 	}
 
-	public Color getColor(){
-		return color;
-	}
+	public abstract void impact(RegularBall regularBall );
+
+	public abstract void impact(FireBall fireBall);
+
+	public abstract void impact(WaterBall waterBall);
+
+	public abstract void impact(TreeBall treeBall) ;
+
+	public abstract void impact(ElectricBall electricBall);
 }
