@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
  * The class that represents a block in the game.
  *
  */
-abstract class Brick extends Rectangle implements GameComponents.Visitor
+abstract public class Brick extends Rectangle implements GameComponents.Visitor
 
 {
 	//Variables
