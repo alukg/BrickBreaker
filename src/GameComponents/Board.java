@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * The class that represents the board in the game.
  */
-public class Board extends JPanel implements Runnable, MouseMotionListener, KeyListener , ActionListener
+public class Board extends JPanel implements Runnable, MouseMotionListener, KeyListener , ActionListener , MouseListener
 {
 	//Variables
 	private Game game;
@@ -31,15 +31,46 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private int movey;
 	private int movex;
 
-	Brick[] bricks = new Brick[80];
+	public static Brick[] bricks = new Brick[80];
 
 	//Constructors
 	public Board(Game game, int[][] bricks)
 	{
 		this.game = game;
-		for(int row=0;row<8;row++){
-			for(int col=0;col<10;col++){
-				this.bricks[row*10+col] = new Brick(75+col*50,80+row*20,45,15,bricks[row][col]);
+		for(int row=0;row<8;row++)
+		{
+			for(int col=0;col<10;col++)
+			{
+				//Create each brick by his type.
+				switch (bricks[row][col])
+				{
+					case 0:
+						this.bricks[row*10+col] = new NormalBrick(75+col*50,80+row*20,45,15);
+						break;
+					case 1:
+						this.bricks[row*10+col] = new FireBrick(75+col*50,80+row*20,45,15);
+						break;
+					case 2:
+						this.bricks[row*10+col] = new WaterBrick(75+col*50,80+row*20,45,15);
+						break;
+					case 3:
+						this.bricks[row*10+col] = new ElectricBrick(75+col*50,80+row*20,45,15);
+						break;
+					case 4:
+						this.bricks[row*10+col] = new TreeBrick(75+col*50,80+row*20,45,15);
+						break;
+					case 5:
+						this.bricks[row*10+col] = new XBrick(75+col*50,80+row*20,45,15);
+						break;
+					case 6:
+						this.bricks[row*10+col] = new PlusBrick(75+col*50,80+row*20,45,15);
+						break;
+					case 7:
+						this.bricks[row*10+col] = new RectangleBrick(75+col*50,80+row*20,45,15);
+						break;
+					//this.bricks[row*10+col] = new Brick(75+col*50,80+row*20,45,15,bricks[row][col]);
+				}
+
 			}
 		}
 		ball = new FireBall(BALL_START_X,BALL_START_Y);
@@ -54,6 +85,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 		this.addKeyListener(this);
 		this.addMouseMotionListener(this);
+		this.addMouseListener(this);
 	}
 
 	public void paint (Graphics g){
@@ -76,33 +108,37 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		}
 	}
 
-	public void run() {
-		while (!gameFinished) {
-			if(ballMove){
-				for (int i = 0; i < bricks.length; i++) {
-					if (bricks[i] != null) {
-						if (bricks[i].intersects(ball)) {
-							Rectangle2D r = bricks[i].createIntersection(ball);
+	public void run()
+	{
+		while (!gameFinished)
+		{
+			if(ballMove)
+			{
+				for (int i = 0; i < bricks.length; i++)
+				{
+					if (bricks[i] != null)
+					{
+						if (bricks[i].intersects(ball))
+						{
 
-							/***************************** checks *************************
-							 System.out.println(bricks[i].getX() +" , " + bricks[i].getY() +" , " + bricks[i].width +" , " + bricks[i].height);
-							 System.out.println(r.getX() +" , "+r.getY());
-							 **************************************************************/
-
-							if ((r.getX() == bricks[i].getX() || r.getX() == (bricks[i].getX() + bricks[i].width - 1)) && (r.getY() <= bricks[i].getY() + bricks[i].height - 2 && r.getY() > bricks[i].getY())) {
-								movex = -movex;
-							} else {
-								movey = -movey;
+							//Rectangle2D r = bricks[i].createIntersection(ball);
+							//if ((r.getX() == bricks[i].getX() || r.getX() == (bricks[i].getX() + bricks[i].width - 1)) && (r.getY() <= bricks[i].getY() + bricks[i].height - 2 && r.getY() > bricks[i].getY()))
+							//{
+							//	movex = -movex;
+								bricks[i].impact(ball);
 							}
-							bricks[i] = null;
-							game.addDeadBrick();
+							else
+							{
+								bricks[i].impact(ball);
+								//movey = -movey;
+							}
 							if(game.getDeadBricks()==80){
 								gameFinished=true;
 							}
 							break;
 						}
 					}
-				}
+
 
 				repaint();
 
@@ -122,7 +158,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 					timerForBallDown = new Timer(3000, this);
 					timerForBallDown.start();
 				}
-				if (ball.intersects(bat)) {
+				if (ball.intersects(bat))
+				{
 					Rectangle2D r = bat.createIntersection(ball);
 					if (r.getY() <= 590){
 						int dis = (int)(r.getX()-bat.getX());
@@ -247,5 +284,36 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		movey = -movey;
 		timerForBallDown.stop();
 		repaint();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		System.out.println("Mouse clicked");
+		//int keyCode = event.getKeyCode();
+		//if(keyCode == KeyEvent.VK_SPACE)
+		//{
+			ballMove = true;
+		//}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
 	}
 }
