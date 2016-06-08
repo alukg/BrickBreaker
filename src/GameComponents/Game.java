@@ -18,53 +18,33 @@ public class Game extends PanelModel implements ActionListener
 	private Board board;
 	Controller controller;
 	private Timer time;
-	private String BestTime;
+	private String bestTime;
 	private static int min=0,sec=0;
 	private JLabel labelTimer;
-	private JButton undo;
-	JButton selectLevel;
+	JButton homeButton;
 
-	//Constructors
-	/*public Game()
+	public Game(Controller controller /* , Level level */)
 	{
-		undo = new JButtonWithIcon("design\\UndoPirate.jpg");
-		selectLevel = new JButtonWithIcon("design\\returnPirate.jpg");
-		selectLevel.setActionCommand("Select level");
-		selectLevel.addActionListener(this);
-		selectLevel.addActionListener(controller.new menuPress());
-		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
-		labelTimer.setForeground(Color.WHITE);
-		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
-		this.time = new Timer(1000,this);
-		undo.addActionListener(this);
-		menuPanel.add(labelTimer);
-		menuPanel.add(undo);
-		menuPanel.add(selectLevel);
-
-		mainPanel.setBackground(new Color(24,99,131));
-	}*/
-
-	public Game(Controller controller)
-	{
-		this.BestTime= BestTime;
 		this.controller = controller;
-		undo = new JButtonWithIcon("design\\UndoPirate.jpg");
-		selectLevel = new JButtonWithIcon("design\\returnPirate.jpg");
-		selectLevel.setActionCommand("Home");
-		selectLevel.addActionListener(this);
-		selectLevel.addActionListener(controller.new menuPress());
-		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime,SwingConstants.CENTER);
-		labelBestTime.setForeground(Color.WHITE);
-		labelBestTime.setFont(new Font(labelBestTime.getFont().getFontName(),Font.BOLD,16));
+		// this.bestTime = level.bestTime;
+
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
 		labelTimer.setForeground(Color.WHITE);
 		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
 		this.time = new Timer(1000, this);
-		undo.addActionListener(this);
 		menuPanel.add(labelTimer);
+
+		JLabel labelBestTime = new JLabel("Best time is : "+this.bestTime,SwingConstants.CENTER);
+		labelBestTime.setForeground(Color.WHITE);
+		labelBestTime.setFont(new Font(labelBestTime.getFont().getFontName(),Font.BOLD,16));
 		menuPanel.add(labelBestTime);
-		menuPanel.add(undo);
-		menuPanel.add(selectLevel);
+
+		homeButton = new JButtonWithIcon("design\\returnPirate.jpg");
+		homeButton.setActionCommand("Home");
+		homeButton.addActionListener(this);
+		homeButton.addActionListener(controller.new menuPress());
+		menuPanel.add(homeButton);
+
 		this.board = new Board(this);
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.add(this.board,BorderLayout.CENTER);
@@ -72,8 +52,8 @@ public class Game extends PanelModel implements ActionListener
 
 		Thread thread = new Thread(board);
 		thread.start();
-
 	}
+
 	//Getters and Setters
 	public Board getBoard() {
 		return board;
@@ -85,15 +65,16 @@ public class Game extends PanelModel implements ActionListener
 	}
 
 	public String getBestTime() {
-		return BestTime;
+		return bestTime;
 	}
 
 	public void setBestTime(String bestTime)
 	{
-		BestTime = bestTime;
-		JLabel labelbestTime = new JLabel("Best time is : "+this.BestTime);
+		bestTime = bestTime;
+		JLabel labelbestTime = new JLabel("Best time is : "+this.bestTime);
 		menuPanel.add(labelbestTime);
 	}
+
 	/**
 	 * The function operate the timer and stop it and operate undo function of the board if the undo button was pressed.
 	 * @parm  e saves the action event details.
@@ -115,16 +96,14 @@ public class Game extends PanelModel implements ActionListener
 		}
 		else
 		{
-			if(e.getSource() == selectLevel)
+			if(e.getSource() == homeButton)
 			{
 					this.time.stop();
 					min = 0;
 					sec = 0;
 			}
-
 		}
 	}
-
 
 	/**
 	 * The function stops the timer of the board and runs the controller game finished function.
@@ -135,7 +114,7 @@ public class Game extends PanelModel implements ActionListener
 		String currentTime = this.labelTimer.getText();
 		min = 0;
 		sec = 0;
-		this.controller.gameFinished(currentTime,BestTime);
+		this.controller.gameFinished(currentTime,bestTime);
 	}
 	
 }
