@@ -8,13 +8,13 @@ import java.awt.geom.Rectangle2D;
 /**
  * The class that represents the board in the game.
  */
-public class Board extends JPanel implements Runnable, MouseMotionListener, KeyListener
+public class Board extends JPanel implements Runnable, MouseMotionListener, KeyListener , ActionListener
 {
 	//Variables
 	private Game game;
 	private int ballx = 319;
 	private int bally = 578;
-
+	private Timer timerForBallDown;
 	private int batx = 285;
 	private int baty = 590;
 
@@ -101,9 +101,12 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				if (ball.y <= 0) {
 					movey = -movey;
 				}
-				if (ball.y >= 600) {
+				if (ball.y >= 600)
+				{
 					ballFallDown = true;
-					//Function to show the ball again
+					ballMove = false;
+					timerForBallDown = new Timer(3000, this);
+					timerForBallDown.start();
 				}
 				if (ball.intersects(bat)) {
 					Rectangle2D r = bat.createIntersection(ball);
@@ -159,9 +162,22 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				bat.x = (int) (locationOnPanel.getX());
 				repaint();
 			} else {
-				batx = 570;
+				bat.x = 570;
 			}
 		}
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		ball.x = 319;
+		ball.y = 578;
+		bat.x =  250;
+		bat.y = 590;
+		ballFallDown = false;
+		//ballMove = true;
+		movey = -movey;
+		timerForBallDown.stop();
+		repaint();
+	}
 }

@@ -43,14 +43,14 @@ public class HomeWindow extends PanelModel {
         addLevelChoosePanel(); //add the levels from the DB to the panel.
 
         //Add music
-        try {
+     /*   try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("PiratesOfTheCaribbean.wav").getAbsoluteFile());
             clip = AudioSystem.getClip();
             clip.open(audioInputStream); //open the sound file.
         } catch(Exception ex) {
             System.out.println("Error with playing sound.");
             ex.printStackTrace();
-        }
+        }*/
     }
 
     /**
