@@ -18,15 +18,16 @@ public class Game extends PanelModel implements ActionListener
 	private Board board;
 	Controller controller;
 	private Timer time;
-	private String bestTime;
+	private Integer bestScore;
 	private static int min=0,sec=0;
 	private JLabel labelTimer;
 	JButton homeButton;
+	private int count = 0;
 
 	public Game(Controller controller, Level level)
 	{
 		this.controller = controller;
-		this.bestTime = level.bestTime;
+		this.bestScore = level.bestScore;
 
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
 		labelTimer.setForeground(Color.WHITE);
@@ -34,7 +35,7 @@ public class Game extends PanelModel implements ActionListener
 		this.time = new Timer(1000, this);
 		menuPanel.add(labelTimer);
 
-		JLabel labelBestTime = new JLabel("Best time is : "+this.bestTime,SwingConstants.CENTER);
+		JLabel labelBestTime = new JLabel("Best time is : "+this.bestScore,SwingConstants.CENTER);
 		labelBestTime.setForeground(Color.WHITE);
 		labelBestTime.setFont(new Font(labelBestTime.getFont().getFontName(),Font.BOLD,16));
 		menuPanel.add(labelBestTime);
@@ -64,14 +65,14 @@ public class Game extends PanelModel implements ActionListener
 		mainPanel.add(this.board);
 	}
 
-	public String getBestTime() {
-		return bestTime;
+	public int getBestScore() {
+		return bestScore;
 	}
 
-	public void setBestTime(String bestTime)
+	public void setBestScore(String bestScore)
 	{
-		bestTime = bestTime;
-		JLabel labelbestTime = new JLabel("Best time is : "+this.bestTime);
+		bestScore = bestScore;
+		JLabel labelbestTime = new JLabel("Best time is : "+this.bestScore);
 		menuPanel.add(labelbestTime);
 	}
 
@@ -98,23 +99,33 @@ public class Game extends PanelModel implements ActionListener
 		{
 			if(e.getSource() == homeButton)
 			{
-					this.time.stop();
-					min = 0;
-					sec = 0;
+				this.time.stop();
+				min = 0;
+				sec = 0;
 			}
 		}
+	}
+
+	public void addOneForCounter(){
+		count++;
+	}
+
+	public int getCounter(){
+		return count;
 	}
 
 	/**
 	 * The function stops the timer of the board and runs the controller game finished function.
 	 **/
-	public void Finish()
+	public void finish()
 	{
 		this.time.stop();
-		String currentTime = this.labelTimer.getText();
+		int levelScore = Math.max(0, 1500-count-2*(min*60+sec));
+
 		min = 0;
 		sec = 0;
-		this.controller.gameFinished(currentTime,bestTime);
+
+		this.controller.gameFinished(levelScore,bestScore);
 	}
 	
 }

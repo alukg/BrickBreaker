@@ -21,10 +21,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private Rectangle ball = new Rectangle(ballx,bally,12,12);
 	private Rectangle bat = new Rectangle(batx,baty,80,10);
 
-	private boolean GameFinished = false;
+	private boolean gameFinished = false;
 	private boolean ballFallDown = false;
 	private boolean ballMove = false;
-	private int count = 0;
 	private int movey = -1;
 	private int movex = 1;
 
@@ -64,9 +63,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	}
 
 	public void run() {
-		while (!GameFinished) {
-			if(ballMove)
-			{
+		while (!gameFinished) {
+			if(ballMove){
 				for (int i = 0; i < bricks.length; i++) {
 					if (bricks[i] != null) {
 						if (bricks[i].intersects(ball)) {
@@ -83,6 +81,10 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 								movey = -movey;
 							}
 							bricks[i] = null;
+							game.addOneForCounter();
+							if(game.getCounter()==80){
+								gameFinished=true;
+							}
 							break;
 						}
 					}
@@ -112,13 +114,13 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 						movey = movey * -1;
 				}
 			}
-				try {
-					Thread.sleep(5);
-				} catch (Exception e) {
+			try {
+				Thread.sleep(5);
+			} catch (Exception e) {
 
-				}
-
+			}
 		}
+		game.finish();
 	}
 
 	@Override

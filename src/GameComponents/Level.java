@@ -7,11 +7,11 @@ public class Level
 {
     //Variables
     public int[][] bricks;
-    public String bestTime;
+    public Integer bestScore;
 
     //Constructors
-    public Level(int[][] bricks, String bestTime){
-        this.bestTime = bestTime;
+    public Level(int[][] bricks, Integer bestScore){
+        this.bestScore = bestScore;
         this.bricks = bricks;
     }
 }

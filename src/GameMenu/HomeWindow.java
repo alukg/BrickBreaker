@@ -83,7 +83,12 @@ public class HomeWindow extends PanelModel {
                 levelButton.setHorizontalTextPosition(JButton.CENTER);
                 levelButton.setVerticalTextPosition(JButton.CENTER);
                 levelButton.setActionCommand(""+i);
-                levelButton.setText("<html><center>Level "+(i+1)+"<br/>"+vector.elementAt(i).bestTime+"</center></html>");
+                if(vector.elementAt(i).bestScore == null){
+                    levelButton.setText("<html><center>Level "+(i+1)+"<br/>--:--</center></html>");
+                }
+                else{
+                    levelButton.setText("<html><center>Level "+(i+1)+"<br/>"+vector.elementAt(i).bestScore +"</center></html>");
+                }
                 levelButton.addActionListener(controller.new gamePress());
                 levelsChoose.add(levelButton);
                 i++;
