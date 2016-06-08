@@ -22,7 +22,7 @@ public class Game extends PanelModel implements ActionListener
 	private static int min=0,sec=0;
 	private JLabel labelTimer;
 	JButton homeButton;
-	private int count = 0;
+	private int deadBricks = 0;
 
 	public Game(Controller controller, Level level)
 	{
@@ -106,12 +106,12 @@ public class Game extends PanelModel implements ActionListener
 		}
 	}
 
-	public void addOneForCounter(){
-		count++;
+	public void addDeadBrick(){
+		deadBricks++;
 	}
 
-	public int getCounter(){
-		return count;
+	public int getDeadBricks(){
+		return deadBricks;
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class Game extends PanelModel implements ActionListener
 	public void finish()
 	{
 		this.time.stop();
-		int levelScore = Math.max(0, 1500-count-2*(min*60+sec));
+		int levelScore = Math.max(0, 1500- deadBricks -2*(min*60+sec));
 
 		min = 0;
 		sec = 0;

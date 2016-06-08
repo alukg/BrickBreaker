@@ -1,9 +1,13 @@
 package GameComponents;
 
+import GameComponents.Balls.*;
+import GameComponents.Bricks.Brick;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 /**
  * The class that represents the board in the game.
@@ -12,20 +16,20 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 {
 	//Variables
 	private Game game;
-	private int ballx = 319;
-	private int bally = 578;
+	private final int BALL_START_X = 319;
+	private final int BALL_START_Y = 578;
 	private Timer timerForBallDown;
-	private int batx = 285;
-	private int baty = 590;
+	private final int BAT_START_X = 285;
+	private final int BAT_START_Y = 590;
 
-	private Rectangle ball = new Rectangle(ballx,bally,12,12);
-	private Rectangle bat = new Rectangle(batx,baty,80,10);
+	private Ball ball;
+	private Rectangle bat = new Rectangle(BAT_START_X,BAT_START_Y,80,10);
 
 	private boolean gameFinished = false;
 	private boolean ballFallDown = false;
 	private boolean ballMove = false;
-	private int movey = -1;
-	private int movex = 1;
+	private int movey;
+	private int movex;
 
 	Brick[] bricks = new Brick[80];
 
@@ -38,6 +42,16 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				this.bricks[row*10+col] = new Brick(75+col*50,80+row*20,45,15,bricks[row][col]);
 			}
 		}
+		ball = new FireBall(BALL_START_X,BALL_START_Y);
+
+		Random rand = new Random();
+		movex = rand.nextInt(7) -3;
+
+		if(movex!=0)
+			movey = -4 + Math.abs(movex);
+		else
+			movey = -3;
+
 		this.addKeyListener(this);
 		this.addMouseMotionListener(this);
 	}
@@ -45,7 +59,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	public void paint (Graphics g){
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0,0,649,600);
-		g.setColor(Color.blue);
+		g.setColor(ball.getColor());
 		g.fillOval(ball.x, ball.y, ball.width, ball.height);
 		g.setColor(Color.BLACK);
 		g.fill3DRect(bat.x, bat.y, bat.width, bat.height, true);
@@ -81,8 +95,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 								movey = -movey;
 							}
 							bricks[i] = null;
-							game.addOneForCounter();
-							if(game.getCounter()==80){
+							game.addDeadBrick();
+							if(game.getDeadBricks()==80){
 								gameFinished=true;
 							}
 							break;
@@ -110,12 +124,41 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				}
 				if (ball.intersects(bat)) {
 					Rectangle2D r = bat.createIntersection(ball);
-					if (r.getY() <= 590)
-						movey = movey * -1;
+					if (r.getY() <= 590){
+						int dis = (int)(r.getX()-bat.getX());
+						if(dis<13){
+							movex = -3;
+							movey = -1;
+						}
+						else if(dis>=13 && dis<23){
+							movex = -2;
+							movey = -2;
+						}
+						else if(dis>=23 && dis<35){
+							movex = -1;
+							movey = -3;
+						}
+						else if(dis>=35 && dis<45){
+							movex = 0;
+							movey = -3;
+						}
+						else if(dis>=45 && dis<57){
+							movex = 1;
+							movey = -3;
+						}
+						else if(dis>=57 && dis<67){
+							movex = 2;
+							movey = -2;
+						}
+						else{
+							movex = 3;
+							movey = -1;
+						}
+					}
 				}
 			}
 			try {
-				Thread.sleep(5);
+				Thread.sleep(10);
 			} catch (Exception e) {
 
 			}
@@ -131,6 +174,31 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		if(keyCode == KeyEvent.VK_SPACE)
 		{
 			ballMove = true;
+		}
+		if(keyCode == KeyEvent.VK_1)
+		{
+			ball = new FireBall(ball.x,ball.y);
+			repaint();
+		}
+		if(keyCode == KeyEvent.VK_2)
+		{
+			ball = new WaterBall(ball.x,ball.y);
+			repaint();
+		}
+		if(keyCode == KeyEvent.VK_3)
+		{
+			ball = new ElectricBall(ball.x,ball.y);
+			repaint();
+		}
+		if(keyCode == KeyEvent.VK_4)
+		{
+			ball = new WoodBall(ball.x,ball.y);
+			repaint();
+		}
+		if(keyCode == KeyEvent.VK_F7)
+		{
+			ball = new ElementalBall(ball.x,ball.y);
+			repaint();
 		}
 	}
 
@@ -170,10 +238,10 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		ball.x = 319;
-		ball.y = 578;
-		bat.x =  250;
-		bat.y = 590;
+		ball.x = BALL_START_X;
+		ball.y = BALL_START_Y;
+		bat.x =  BAT_START_X;
+		bat.y = BAT_START_Y;
 		ballFallDown = false;
 		//ballMove = true;
 		movey = -movey;

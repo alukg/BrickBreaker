@@ -1,4 +1,4 @@
-package GameComponents;
+package GameComponents.Bricks;
 
 import java.awt.*;
 
