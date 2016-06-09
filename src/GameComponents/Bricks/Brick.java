@@ -1,5 +1,5 @@
 package GameComponents.Bricks;
-
+import GameComponents.Balls.*;
 import com.sun.org.apache.bcel.internal.classfile.Visitor;
 
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
  * The class that represents a block in the game.
  *
  */
-abstract public class Brick extends Rectangle implements GameComponents.Visitor
+abstract public class Brick extends Rectangle implements IVisitor
 
 {
 	//Variables
@@ -59,13 +59,13 @@ abstract public class Brick extends Rectangle implements GameComponents.Visitor
 		return this.color;
 	}
 
-	public abstract void impact(RegularBall regularBall );
+	public abstract void visit(ElementalBall regularBall );
 
-	public abstract void impact(FireBall fireBall);
+	public abstract void visit(FireBall fireBall);
 
-	public abstract void impact(WaterBall waterBall);
+	public abstract void visit(WaterBall waterBall);
 
-	public abstract void impact(TreeBall treeBall) ;
+	public abstract void visit(WoodBall treeBall) ;
 
-	public abstract void impact(ElectricBall electricBall);
+	public abstract void visit(ElectricBall electricBall);
 }

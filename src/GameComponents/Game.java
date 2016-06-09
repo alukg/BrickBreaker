@@ -107,7 +107,7 @@ public class Game extends PanelModel implements ActionListener
 		}
 	}
 
-	public void addDeadBrick(){
+	public static void addDeadBrick(){
 		deadBricks++;
 	}
 

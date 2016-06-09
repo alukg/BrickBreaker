@@ -1,7 +1,7 @@
 package GameComponents;
 
 import GameComponents.Balls.*;
-import GameComponents.Bricks.Brick;
+import GameComponents.Bricks.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,8 +28,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private boolean gameFinished = false;
 	private boolean ballFallDown = false;
 	private boolean ballMove = false;
-	private int movey;
-	private int movex;
+	public static int movey;
+	public static int movex;
 
 	public static Brick[] bricks = new Brick[80];
 
@@ -45,7 +45,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				switch (bricks[row][col])
 				{
 					case 0:
-						this.bricks[row*10+col] = new NormalBrick(75+col*50,80+row*20,45,15);
+						this.bricks[row*10+col] = new ElementalBrick(75+col*50,80+row*20,45,15);
 						break;
 					case 1:
 						this.bricks[row*10+col] = new FireBrick(75+col*50,80+row*20,45,15);
@@ -57,7 +57,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 						this.bricks[row*10+col] = new ElectricBrick(75+col*50,80+row*20,45,15);
 						break;
 					case 4:
-						this.bricks[row*10+col] = new TreeBrick(75+col*50,80+row*20,45,15);
+						this.bricks[row*10+col] = new WoodBrick(75+col*50,80+row*20,45,15);
 						break;
 					case 5:
 						this.bricks[row*10+col] = new XBrick(75+col*50,80+row*20,45,15);
@@ -125,11 +125,11 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 							//if ((r.getX() == bricks[i].getX() || r.getX() == (bricks[i].getX() + bricks[i].width - 1)) && (r.getY() <= bricks[i].getY() + bricks[i].height - 2 && r.getY() > bricks[i].getY()))
 							//{
 							//	movex = -movex;
-								bricks[i].impact(ball);
+								bricks[i].visit(ball);
 							}
 							else
 							{
-								bricks[i].impact(ball);
+								bricks[i].visit(ball);
 								//movey = -movey;
 							}
 							if(game.getDeadBricks()==80){

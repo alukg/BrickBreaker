@@ -1,6 +1,5 @@
-package GameComponents;
-
-
+package GameComponents.Bricks;
+import GameComponents.Balls.*;
 
 import java.awt.*;
 
@@ -15,27 +14,27 @@ public class XBrick extends Brick
         color = new Color(110, 44, 15);
     }
     @Override
-    public void impact(RegularBall regularBall) {
+    public void visit(ElementalBall regularBall) {
 
     }
 
     @Override
-    public void impact(FireBall fireBall ) {
+    public void visit(FireBall fireBall ) {
 
     }
 
     @Override
-    public void impact(WaterBall waterBall) {
+    public void visit(WaterBall waterBall) {
 
     }
 
     @Override
-    public void impact(TreeBall treeBall) {
+    public void visit(WoodBall treeBall) {
 
     }
 
     @Override
-    public void impact(ElectricBall electricBall) {
+    public void visit(ElectricBall electricBall) {
 
     }
 }
