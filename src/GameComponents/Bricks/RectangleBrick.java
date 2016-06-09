@@ -9,9 +9,9 @@ import java.awt.*;
  */
 public class RectangleBrick extends Brick
 {
-    public RectangleBrick(int x, int y, int width, int height, int index)
+    public RectangleBrick(int x, int y, int index)
     {
-        super(x,y,width,height,index);
+        super(x,y,index);
         this.color = Color.MAGENTA;
     }
     @Override

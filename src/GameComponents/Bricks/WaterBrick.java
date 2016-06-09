@@ -9,9 +9,9 @@ import java.awt.*;
  */
 public class WaterBrick extends Brick
 {
-    public WaterBrick(int x, int y, int width, int height, int index)
+    public WaterBrick(int x, int y, int index)
     {
-        super(x,y,width,height,index);
+        super(x,y,index);
         color = Color.BLUE;
     }
 

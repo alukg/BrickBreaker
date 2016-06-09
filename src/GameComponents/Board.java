@@ -45,28 +45,28 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				switch (bricks[row][col])
 				{
 					case 0:
-						this.bricks[row*10+col] = new RegularBrick(75+col*50,80+row*20,45,15,row*10+col);
+						this.bricks[row*10+col] = new RegularBrick(75+col*50,80+row*20,row*10+col);
 						break;
 					case 1:
-						this.bricks[row*10+col] = new FireBrick(75+col*50,80+row*20,45,15,row*10+col);
+						this.bricks[row*10+col] = new FireBrick(75+col*50,80+row*20,row*10+col);
 						break;
 					case 2:
-						this.bricks[row*10+col] = new WaterBrick(75+col*50,80+row*20,45,15,row*10+col);
+						this.bricks[row*10+col] = new WaterBrick(75+col*50,80+row*20,row*10+col);
 						break;
 					case 3:
-						this.bricks[row*10+col] = new ElectricBrick(75+col*50,80+row*20,45,15,row*10+col);
+						this.bricks[row*10+col] = new ElectricBrick(75+col*50,80+row*20,row*10+col);
 						break;
 					case 4:
-						this.bricks[row*10+col] = new WoodBrick(75+col*50,80+row*20,45,15,row*10+col);
+						this.bricks[row*10+col] = new WoodBrick(75+col*50,80+row*20,row*10+col);
 						break;
 					case 5:
-						this.bricks[row*10+col] = new XBrick(75+col*50,80+row*20,45,15,row*10+col);
+						this.bricks[row*10+col] = new XBrick(75+col*50,80+row*20,row*10+col);
 						break;
 					case 6:
-						this.bricks[row*10+col] = new PlusBrick(75+col*50,80+row*20,45,15,row*10+col);
+						this.bricks[row*10+col] = new PlusBrick(75+col*50,80+row*20,row*10+col);
 						break;
 					case 7:
-						this.bricks[row*10+col] = new RectangleBrick(75+col*50,80+row*20,45,15,row*10+col);
+						this.bricks[row*10+col] = new RectangleBrick(75+col*50,80+row*20,row*10+col);
 						break;
 				}
 

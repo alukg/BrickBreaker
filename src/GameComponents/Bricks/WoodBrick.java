@@ -9,9 +9,9 @@ import java.awt.*;
  */
 public class WoodBrick  extends Brick
 {
-    public WoodBrick(int x, int y, int width, int height, int index)
+    public WoodBrick(int x, int y, int index)
     {
-        super(x,y,width,height,index);
+        super(x,y,index);
         this.color = new Color(110, 44, 15);
     }
     @Override

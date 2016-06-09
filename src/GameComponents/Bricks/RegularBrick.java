@@ -12,9 +12,9 @@ import java.awt.geom.Rectangle2D;
  */
 public class RegularBrick extends Brick
 {
-    public RegularBrick(int x, int y, int width, int height, int index)
+    public RegularBrick(int x, int y, int index)
     {
-        super(x,y,width,height,index);
+        super(x,y,index);
         this.color = Color.BLACK;
     }
     @Override
