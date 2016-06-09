@@ -14,14 +14,10 @@ public class RectangleBrick extends Brick
         super(x,y,index);
         this.color = Color.MAGENTA;
     }
+  //  public  void visit(Ball ball){ball.impact(this);}
     @Override
-    public  void visit(Ball ball)
+    public void visit(ElementalBall ElementalBall)
     {
-        ball.impact(this);
-    }
-    @Override
-    public void visit(ElementalBall regularBall) {
-
     }
 
     @Override
