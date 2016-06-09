@@ -45,7 +45,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				switch (bricks[row][col])
 				{
 					case 0:
-						this.bricks[row*10+col] = new ElementalBrick(75+col*50,80+row*20,45,15);
+						this.bricks[row*10+col] = new RegularBrick(75+col*50,80+row*20,45,15);
 						break;
 					case 1:
 						this.bricks[row*10+col] = new FireBrick(75+col*50,80+row*20,45,15);
@@ -126,10 +126,10 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 							//{
 							//	movex = -movex;
 								bricks[i].visit(ball);
-							}
-							else
-							{
-								bricks[i].visit(ball);
+							//}
+							//else
+							//{
+							//	bricks[i].visit((ElementalBall)(ball));
 								//movey = -movey;
 							}
 							if(game.getDeadBricks()==80){
@@ -137,7 +137,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 							}
 							break;
 						}
-					}
+				}
 
 
 				repaint();
@@ -145,10 +145,12 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				ball.x = ball.x + movex;
 				ball.y = ball.y + movey;
 
-				if (ball.x <= 0 || ball.x + ball.width >= 649) {
+				if (ball.x <= 0 || ball.x + ball.width >= 649)
+				{
 					movex = -movex;
 				}
-				if (ball.y <= 0) {
+				if (ball.y <= 0)
+				{
 					movey = -movey;
 				}
 				if (ball.y >= 600)

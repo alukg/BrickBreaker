@@ -10,9 +10,9 @@ import java.awt.geom.Rectangle2D;
 /**
  * Created by yaniv on 09/06/2016.
  */
-public class ElementalBrick  extends Brick
+public class RegularBrick extends Brick
 {
-    public ElementalBrick(int x, int y, int width, int height)
+    public RegularBrick(int x, int y, int width, int height)
     {
         super(x,y,width,height);
         this.color = Color.BLACK;
@@ -20,7 +20,7 @@ public class ElementalBrick  extends Brick
     @Override
     public void visit(ElementalBall elementalBall)
     {
-        Rectangle2D hitPoint = this.createIntersection(elementalBall);
+        /*Rectangle2D hitPoint = this.createIntersection(elementalBall);
         if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
@@ -30,7 +30,7 @@ public class ElementalBrick  extends Brick
             Board.movey = -Board.movey;
         }
         //Board.bricks[brickNum] = null;
-        Game.addDeadBrick();
+        Game.addDeadBrick();*/
     }
 
     @Override
