@@ -7,9 +7,9 @@ import java.awt.*;
  */
 public class ElectricBrick extends Brick
 {
-    public ElectricBrick(int x, int y, int width, int height)
+    public ElectricBrick(int x, int y, int width, int height, int index)
     {
-        super(x,y,width,height);
+        super(x,y,width,height,index);
         this.color = Color.YELLOW;
     }
     @Override

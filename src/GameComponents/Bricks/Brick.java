@@ -14,11 +14,13 @@ abstract public class Brick extends Rectangle implements IVisitor
 {
 	//Variables
 	protected Color color;
+	protected int index;
 	
 	//Constructors
-	protected Brick(int x, int y, int width, int height)
+	protected Brick(int x, int y, int width, int height, int index)
 	{
 		super(x,y,width,height);
+		this.index=index;
 		/*switch (type)
 		{
 			case 0:

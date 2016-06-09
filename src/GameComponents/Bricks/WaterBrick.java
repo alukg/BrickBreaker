@@ -2,14 +2,17 @@ package GameComponents.Bricks;
 
 import GameComponents.Balls.*;
 
+import java.awt.*;
+
 /**
  * Created by yaniv on 08/06/2016.
  */
 public class WaterBrick extends Brick
 {
-    public WaterBrick(int x, int y, int width, int height)
+    public WaterBrick(int x, int y, int width, int height, int index)
     {
-        super(x,y,width,height);
+        super(x,y,width,height,index);
+        color = Color.BLUE;
     }
 
     @Override

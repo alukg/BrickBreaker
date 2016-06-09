@@ -9,10 +9,10 @@ import java.awt.*;
  */
 public class WoodBrick  extends Brick
 {
-    public WoodBrick(int x, int y, int width, int height)
+    public WoodBrick(int x, int y, int width, int height, int index)
     {
-        super(x,y,width,height);
-        this.color = Color.GREEN;
+        super(x,y,width,height,index);
+        this.color = new Color(110, 44, 15);
     }
     @Override
     public  void visit(Ball ball)

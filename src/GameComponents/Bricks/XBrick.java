@@ -8,9 +8,9 @@ import java.awt.*;
  */
 public class XBrick extends Brick
 {
-    public XBrick(int x, int y, int width, int height)
+    public XBrick(int x, int y, int width, int height, int index)
     {
-        super(x,y,width,height);
+        super(x,y,width,height,index);
         color = new Color(110, 44, 15);
     }
     @Override
