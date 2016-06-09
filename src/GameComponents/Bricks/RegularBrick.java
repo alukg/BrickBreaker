@@ -18,6 +18,10 @@ public class RegularBrick extends Brick
         this.color = Color.BLACK;
     }
     @Override
+    public  void visit(Ball ball)
+    {
+        ball.impact(this);
+    }
     public void visit(ElementalBall elementalBall)
     {
         /*Rectangle2D hitPoint = this.createIntersection(elementalBall);

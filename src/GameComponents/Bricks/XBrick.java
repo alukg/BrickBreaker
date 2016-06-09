@@ -14,6 +14,11 @@ public class XBrick extends Brick
         color = new Color(110, 44, 15);
     }
     @Override
+    public  void visit(Ball ball)
+    {
+        ball.impact(this);
+    }
+    @Override
     public void visit(ElementalBall regularBall) {
 
     }

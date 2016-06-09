@@ -13,6 +13,11 @@ public class FireBrick extends Brick
         this.color = Color.RED;
     }
     @Override
+    public  void visit(Ball ball)
+    {
+        ball.impact(this);
+    }
+    @Override
     public void visit(ElementalBall regularBall) {
 
     }

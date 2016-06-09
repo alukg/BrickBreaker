@@ -5,7 +5,9 @@ import GameComponents.Balls.*;
 /**
  * Created by guyal on 08/06/2016.
  */
-public interface IVisitor {
+public interface IVisitor
+{
+    void visit(Ball ball);
     void visit(ElectricBall ball);
     void visit(ElementalBall ball);
     void visit(FireBall ball);

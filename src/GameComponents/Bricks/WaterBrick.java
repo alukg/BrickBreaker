@@ -12,7 +12,11 @@ public class WaterBrick extends Brick
         super(x,y,width,height);
     }
 
-
+    @Override
+    public  void visit(Ball ball)
+    {
+        ball.impact(this);
+    }
     @Override
     public void visit(ElementalBall regularBall) {
 

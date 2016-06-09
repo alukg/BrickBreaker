@@ -15,6 +15,11 @@ public class RectangleBrick extends Brick
         this.color = Color.MAGENTA;
     }
     @Override
+    public  void visit(Ball ball)
+    {
+        ball.impact(this);
+    }
+    @Override
     public void visit(ElementalBall regularBall) {
 
     }

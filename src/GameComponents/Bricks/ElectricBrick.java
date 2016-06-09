@@ -13,6 +13,10 @@ public class ElectricBrick extends Brick
         this.color = Color.YELLOW;
     }
     @Override
+    public  void visit(Ball ball)
+    {
+        ball.impact(this);
+    }
     public void visit(ElementalBall regularBall) {
 
     }

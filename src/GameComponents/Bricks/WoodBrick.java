@@ -15,6 +15,11 @@ public class WoodBrick  extends Brick
         this.color = Color.GREEN;
     }
     @Override
+    public  void visit(Ball ball)
+    {
+        ball.impact(this);
+    }
+    @Override
     public void visit(ElementalBall regularBall) {
 
     }
