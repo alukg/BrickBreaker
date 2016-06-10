@@ -1,8 +1,11 @@
 package GameComponents.Bricks;
 
 import GameComponents.Balls.*;
+import GameComponents.Board;
+import GameComponents.Game;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Created by yaniv on 08/06/2016.
@@ -14,29 +17,425 @@ public class RectangleBrick extends Brick
         super(x,y,index);
         this.color = Color.MAGENTA;
     }
-  //  public  void visit(Ball ball){ball.impact(this);}
-    @Override
-    public void visit(ElementalBall ElementalBall)
-    {
+    public void visit(ElementalBall elementalBall) {
+        Rectangle2D hitPoint = this.createIntersection(elementalBall);
+        if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
+            Board.movex = -Board.movex;
+        } else {
+            Board.movey = -Board.movey;
+        }
+        int row = index / 10;
+        int col = index % 10;
+
+        if (row != 0)//Can check bricks (row-1)
+        {
+            if (Board.bricks[(row - 1) * 10 + col] != null) //check up
+            {
+                Board.bricks[(row - 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row - 1) * 10 + col + 1] != null)//check right,up
+                {
+                    Board.bricks[(row - 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row - 1) * 10 + col - 1] != null)//check left,up
+                {
+                    Board.bricks[(row - 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
+        if (row != 7)//Can check bricks (row+1)
+        {
+            if (Board.bricks[(row + 1) * 10 + col] != null) //check down
+            {
+                Board.bricks[(row + 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row + 1) * 10 + col + 1] != null)//check right,down
+                {
+                    Board.bricks[(row + 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row + 1) * 10 + col - 1] != null)//check left,down
+                {
+                    Board.bricks[(row + 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
     }
 
-    @Override
-    public void visit(FireBall fireBall ) {
+    public void visit(FireBall fireBall ){
+        Rectangle2D hitPoint = this.createIntersection(fireBall);
+        if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
+            Board.movex = -Board.movex;
+        } else {
+            Board.movey = -Board.movey;
+        }
+        int row = index / 10;
+        int col = index % 10;
 
+        //kill center ball
+        Board.bricks[row * 10 + col] = null;
+        Game.addDeadBrick();
+
+
+        if (row != 0)//Can check bricks (row-1)
+        {
+            if (Board.bricks[(row - 1) * 10 + col] != null) //check up
+            {
+                Board.bricks[(row - 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row - 1) * 10 + col + 1] != null)//check right,up
+                {
+                    Board.bricks[(row - 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row - 1) * 10 + col - 1] != null)//check left,up
+                {
+                    Board.bricks[(row - 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
+        if (row != 7)//Can check bricks (row+1)
+        {
+            if (Board.bricks[(row + 1) * 10 + col] != null) //check down
+            {
+                Board.bricks[(row + 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row + 1) * 10 + col + 1] != null)//check right,down
+                {
+                    Board.bricks[(row + 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row + 1) * 10 + col - 1] != null)//check left,down
+                {
+                    Board.bricks[(row + 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
     }
-
-    @Override
     public void visit(WaterBall waterBall) {
+        Rectangle2D hitPoint = this.createIntersection(waterBall);
+        if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
+            Board.movex = -Board.movex;
+        } else {
+            Board.movey = -Board.movey;
+        }
+        int row = index / 10;
+        int col = index % 10;
 
+        //kill center ball
+        Board.bricks[row * 10 + col] = null;
+        Game.addDeadBrick();
+
+
+        if (row != 0)//Can check bricks (row-1)
+        {
+            if (Board.bricks[(row - 1) * 10 + col] != null) //check up
+            {
+                Board.bricks[(row - 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row - 1) * 10 + col + 1] != null)//check right,up
+                {
+                    Board.bricks[(row - 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row - 1) * 10 + col - 1] != null)//check left,up
+                {
+                    Board.bricks[(row - 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
+        if (row != 7)//Can check bricks (row+1)
+        {
+            if (Board.bricks[(row + 1) * 10 + col] != null) //check down
+            {
+                Board.bricks[(row + 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row + 1) * 10 + col + 1] != null)//check right,down
+                {
+                    Board.bricks[(row + 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row + 1) * 10 + col - 1] != null)//check left,down
+                {
+                    Board.bricks[(row + 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
     }
+    public void visit(WoodBall woodBall) {
+        Rectangle2D hitPoint = this.createIntersection(woodBall);
+        if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
+            Board.movex = -Board.movex;
+        } else {
+            Board.movey = -Board.movey;
+        }
+        int row = index / 10;
+        int col = index % 10;
 
-    @Override
-    public void visit(WoodBall treeBall) {
+        //kill center ball
+        Board.bricks[row * 10 + col] = null;
+        Game.addDeadBrick();
 
+
+        if (row != 0)//Can check bricks (row-1)
+        {
+            if (Board.bricks[(row - 1) * 10 + col] != null) //check up
+            {
+                Board.bricks[(row - 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row - 1) * 10 + col + 1] != null)//check right,up
+                {
+                    Board.bricks[(row - 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row - 1) * 10 + col - 1] != null)//check left,up
+                {
+                    Board.bricks[(row - 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
+        if (row != 7)//Can check bricks (row+1)
+        {
+            if (Board.bricks[(row + 1) * 10 + col] != null) //check down
+            {
+                Board.bricks[(row + 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row + 1) * 10 + col + 1] != null)//check right,down
+                {
+                    Board.bricks[(row + 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row + 1) * 10 + col - 1] != null)//check left,down
+                {
+                    Board.bricks[(row + 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
     }
+    public void visit(ElectricBall electricBall){
+        Rectangle2D hitPoint = this.createIntersection(electricBall);
+        if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
+            Board.movex = -Board.movex;
+        } else {
+            Board.movey = -Board.movey;
+        }
+        int row = index / 10;
+        int col = index % 10;
 
-    @Override
-    public void visit(ElectricBall electricBall) {
+        //kill center ball
+        Board.bricks[row * 10 + col] = null;
+        Game.addDeadBrick();
 
+
+        if (row != 0)//Can check bricks (row-1)
+        {
+            if (Board.bricks[(row - 1) * 10 + col] != null) //check up
+            {
+                Board.bricks[(row - 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row - 1) * 10 + col + 1] != null)//check right,up
+                {
+                    Board.bricks[(row - 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row - 1) * 10 + col - 1] != null)//check left,up
+                {
+                    Board.bricks[(row - 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
+        if (row != 7)//Can check bricks (row+1)
+        {
+            if (Board.bricks[(row + 1) * 10 + col] != null) //check down
+            {
+                Board.bricks[(row + 1) * 10 + col] = null;
+                Game.addDeadBrick();
+            }
+            if (col != 9)//can check brick col+1
+            {
+                if (Board.bricks[(row + 1) * 10 + col + 1] != null)//check right,down
+                {
+                    Board.bricks[(row + 1) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col + 1] != null)//check right
+                {
+                    Board.bricks[(row) * 10 + col + 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+            if (col != 0)//can check brick col-1
+            {
+                if (Board.bricks[(row + 1) * 10 + col - 1] != null)//check left,down
+                {
+                    Board.bricks[(row + 1) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+                if (Board.bricks[(row) * 10 + col - 1] != null)//check left
+                {
+                    Board.bricks[(row) * 10 + col - 1] = null;
+                    Game.addDeadBrick();
+                }
+            }
+        }
     }
 }
