@@ -22,7 +22,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private Game game;
 	private final int BALL_START_X = 319;
 	private final int BALL_START_Y = 578;
-	private Timer timerForBallDown;
+	public static Timer timerForBallDown;
 	private final int BAT_START_X = 285;
 	private final int BAT_START_Y = 590;
 
@@ -30,8 +30,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private Rectangle bat = new Rectangle(BAT_START_X,BAT_START_Y,80,10);
 
 	private boolean gameFinished = false;
-	private boolean ballFallDown = false;
-	private boolean ballMove = false;
+	public static boolean ballDisappear = false;
+	public static boolean ballMove = false;
 	public static int movey;
 	public static int movex;
 
@@ -113,10 +113,11 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 			movey = -4 + Math.abs(movex);
 		else
 			movey = -3;
-
 		this.addKeyListener(this);
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
+		timerForBallDown = new Timer(3000, this);
+
 	}
 
 	public void paint (Graphics g){
@@ -139,33 +140,30 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 	public void run()
 	{
-		while (!gameFinished)
-		{
-			if(ballMove)
+		while (!gameFinished) {
+			if (ballMove)
 			{
-				for (int i = 0; i < bricks.length; i++)
-				{
-					if (bricks[i] != null)
-					{
-						if (bricks[i].intersects(ball))
-						{
-
+				for (int i = 0; i < bricks.length; i++) {
+					if (bricks[i] != null) {
+						if (ball.intersects(bricks[i])) {
+							//System.out.println("Intersection happened wirth brick "+i);
 							//Rectangle2D r = bricks[i].createIntersection(ball);
 							//if ((r.getX() == bricks[i].getX() || r.getX() == (bricks[i].getX() + bricks[i].width - 1)) && (r.getY() <= bricks[i].getY() + bricks[i].height - 2 && r.getY() > bricks[i].getY()))
 							//{
 							//	movex = -movex;
-								bricks[i].visit(ball);
+							ball.impact(bricks[i]);
 							//}
 							//else
 							//{
 							//	bricks[i].visit((ElementalBall)(ball));
-								//movey = -movey;
-							}
-							if(game.getDeadBricks()==80){
-								gameFinished=true;
+							//movey = -movey;
+							Game.count++;
+							if (game.getDeadBricks() == 80) {
+								gameFinished = true;
 							}
 							break;
 						}
+					}
 				}
 
 
@@ -174,51 +172,41 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				ball.x = ball.x + movex;
 				ball.y = ball.y + movey;
 
-				if (ball.x <= 0 || ball.x + ball.width >= 649)
-				{
+				if (ball.x <= 0 || ball.x + ball.width >= 649) {
 					movex = -movex;
 				}
-				if (ball.y <= 0)
-				{
+				if (ball.y <= 0) {
 					movey = -movey;
 				}
 				if (ball.y >= 600)
 				{
-					ballFallDown = true;
+					ballDisappear = true;
 					ballMove = false;
-					timerForBallDown = new Timer(3000, this);
 					timerForBallDown.start();
 				}
-				if (ball.intersects(bat))
-				{
+				if (ball.intersects(bat)) {
 					Rectangle2D r = bat.createIntersection(ball);
-					if (r.getY() <= 590){
-						int dis = (int)(r.getX()-bat.getX());
-						if(dis<13){
+					if (r.getY() <= 590) {
+						int dis = (int) (r.getX() - bat.getX());
+						if (dis < 13) {
 							movex = -3;
 							movey = -1;
-						}
-						else if(dis>=13 && dis<23){
+						} else if (dis >= 13 && dis < 23) {
 							movex = -2;
 							movey = -2;
-						}
-						else if(dis>=23 && dis<35){
+						} else if (dis >= 23 && dis < 35) {
 							movex = -1;
 							movey = -3;
-						}
-						else if(dis>=35 && dis<45){
+						} else if (dis >= 35 && dis < 45) {
 							movex = 0;
 							movey = -3;
-						}
-						else if(dis>=45 && dis<57){
+						} else if (dis >= 45 && dis < 57) {
 							movex = 1;
 							movey = -3;
-						}
-						else if(dis>=57 && dis<67){
+						} else if (dis >= 57 && dis < 67) {
 							movex = 2;
 							movey = -2;
-						}
-						else{
+						} else {
 							movex = 3;
 							movey = -1;
 						}
@@ -227,7 +215,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 			}
 			try {
 				Thread.sleep(10);
-			} catch (Exception e) {
+			} catch (Exception e)
+			{
 
 			}
 		}
@@ -310,7 +299,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		ball.y = BALL_START_Y;
 		bat.x =  BAT_START_X;
 		bat.y = BAT_START_Y;
-		ballFallDown = false;
+		ballDisappear = false;
 		//ballMove = true;
 		movey = -movey;
 		timerForBallDown.stop();

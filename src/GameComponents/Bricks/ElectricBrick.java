@@ -2,6 +2,11 @@ package GameComponents.Bricks;
 import GameComponents.Balls.*;
 import GameComponents.Board;
 
+import GameComponents.Game;
+
+import java.awt.geom.Rectangle2D;
+
+
 /**
  * Created by yaniv on 08/06/2016.
  */
@@ -12,33 +17,60 @@ public class ElectricBrick extends Brick
         super(x,y,index);
         image = Board.electricImage;
     }
-    @Override
-    public  void visit(Ball ball)
+    //Direction doesn't changed
+    //brick disappear
+    public void visit(ElementalBall elementalBall)
     {
-        ball.impact(this);
+        Board.bricks[this.index] = null;
+        Game.addDeadBrick();
     }
 
-    public void visit(ElementalBall regularBall) {
-
+    //Direction change
+    //brick disappear
+    public void visit(FireBall fireBall )
+    {
+        Rectangle2D hitPoint = this.createIntersection(fireBall);
+        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        {
+            Board.movex = -Board.movex;
+        } else
+        {
+            Board.movey = -Board.movey;
+        }
+        Board.bricks[this.index] = null;
+        Game.addDeadBrick();
     }
 
-    @Override
-    public void visit(FireBall fireBall ) {
 
+    //Ball disappear
+    //brick doesn't disappear
+    public void visit(WaterBall waterBall)
+    {
+        Board.ballMove = false;
+        Board.ballDisappear = true;
+        Board.timerForBallDown.start();
     }
-
-    @Override
-    public void visit(WaterBall waterBall) {
-
+    //Direction doesn't change
+    //brick disappear
+    public void visit(WoodBall woodBall)
+    {
+        Board.bricks[this.index] = null;
+        Game.addDeadBrick();
     }
-
-    @Override
-    public void visit(WoodBall treeBall) {
-
-    }
-
-    @Override
-    public void visit(ElectricBall electricBall) {
-
+    //Direction change
+    //brick doesn't disappear
+    public void visit(ElectricBall electricBall)
+    {
+        Rectangle2D hitPoint = this.createIntersection(electricBall);
+        //Change direction
+        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        {
+            Board.movex = -Board.movex;
+        } else
+        {
+            Board.movey = -Board.movey;
+        }
     }
 }

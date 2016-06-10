@@ -3,11 +3,9 @@ package GameComponents.Bricks;
 import GameComponents.Balls.*;
 import GameComponents.Board;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import GameComponents.Game;
+
+import java.awt.geom.Rectangle2D;
 
 /**
  * Created by yaniv on 08/06/2016.
@@ -20,33 +18,59 @@ public class WaterBrick extends Brick
         image = Board.waterImage;
     }
 
-    @Override
-    public  void visit(Ball ball)
+    //Direction doesn't changed
+    //brick disappear
+    public void visit(ElementalBall elementalBall)
     {
-        ball.impact(this);
+
+        Board.bricks[this.index] = null;
+        Game.addDeadBrick();
     }
-    @Override
-    public void visit(ElementalBall regularBall) {
-
-    }
-
-    @Override
-    public void visit(FireBall fireBall ) {
-
-    }
-
-    @Override
-    public void visit(WaterBall waterBall) {
-
+    //Ball disappear
+    //brick doesn't disappear
+    public void visit(FireBall fireBall )
+    {
+        Board.ballMove = false;
+        Board.ballDisappear = true;
+        Board.timerForBallDown.start();
     }
 
-    @Override
-    public void visit(WoodBall treeBall) {
-
+    //Direction changed
+    //brick doesn't disappear
+    public void visit(WaterBall waterBall)
+    {
+        Rectangle2D hitPoint = this.createIntersection(waterBall);
+        //Change direction
+        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        {
+            Board.movex = -Board.movex;
+        } else
+        {
+            Board.movey = -Board.movey;
+        }
     }
-
-    @Override
-    public void visit(ElectricBall electricBall) {
-
+    //Direction change
+    //brick disappear
+    public void visit(WoodBall woodBall)
+    {
+        Rectangle2D hitPoint = this.createIntersection(woodBall);
+        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
+                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        {
+            Board.movex = -Board.movex;
+        } else
+        {
+            Board.movey = -Board.movey;
+        }
+        Board.bricks[this.index] = null;
+        Game.addDeadBrick();
+    }
+    //Direction doesn't change
+    //brick disappear
+    public void visit(ElectricBall electricBall)
+    {
+        Board.bricks[this.index] = null;
+        Game.addDeadBrick();
     }
 }

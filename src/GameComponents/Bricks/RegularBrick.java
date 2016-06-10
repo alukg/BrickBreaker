@@ -21,27 +21,17 @@ public class RegularBrick extends Brick
         super(x,y,index);
         image = Board.regularImage;
     }
-    @Override
-    public  void visit(Ball ball)
-    {
-        ball.impact(this);
-    }
+    //Direction doesn't changed
+    //brick disappear
     public void visit(ElementalBall elementalBall)
     {
-        /*Rectangle2D hitPoint = this.createIntersection(elementalBall);
-        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
-        {
-            Board.movex = -Board.movex;
-        } else
-        {
-            Board.movey = -Board.movey;
-        }
-        //Board.bricks[brickNum] = null;
-        Game.addDeadBrick();*/
+
+        Board.bricks[this.index] = null;
+        Game.addDeadBrick();
     }
 
-    @Override
+    //Direction changed
+    //brick disappear
     public void visit(FireBall fireBall)
     {
         Rectangle2D hitPoint = this.createIntersection(fireBall);
@@ -53,11 +43,12 @@ public class RegularBrick extends Brick
         {
             Board.movey = -Board.movey;
         }
-        // Board.bricks[brickNum] = null;
+         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
 
-    @Override
+    //Direction changed
+    //brick disappear
     public void visit(WaterBall waterBall)
     {
         Rectangle2D hitPoint = this.createIntersection(waterBall);
@@ -69,10 +60,11 @@ public class RegularBrick extends Brick
         {
             Board.movey = -Board.movey;
         }
-        // Board.bricks[brickNum] = null;
+        Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-    @Override
+    //Direction changed
+    //brick disappear
     public void visit(WoodBall woodBall)
     {
         Rectangle2D hitPoint = this.createIntersection(woodBall);
@@ -84,11 +76,12 @@ public class RegularBrick extends Brick
         {
             Board.movey = -Board.movey;
         }
-        // Board.bricks[brickNum] = null;
+        Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
 
-    @Override
+    //Direction changed
+    //brick disappear
     public void visit(ElectricBall electricBall)
     {
         Rectangle2D hitPoint = this.createIntersection(electricBall);
@@ -100,7 +93,7 @@ public class RegularBrick extends Brick
         {
             Board.movey = -Board.movey;
         }
-        //Board.bricks[brickNum] = null;
+        Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
 }

@@ -7,10 +7,10 @@ import GameComponents.Balls.*;
  */
 public interface IVisitor
 {
-    void visit(Ball ball);
-    void visit(ElectricBall ball);
-    void visit(ElementalBall ball);
-    void visit(FireBall ball);
-    void visit(WaterBall ball);
-    void visit(WoodBall ball);
+    //void visit(Ball ball);
+    void visit(ElectricBall electricBall);
+    void visit(ElementalBall elementalBall);
+    void visit(FireBall fireBall);
+    void visit(WaterBall waterBall);
+    void visit(WoodBall woodBall);
 }

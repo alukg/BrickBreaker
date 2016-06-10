@@ -30,9 +30,9 @@ abstract public class Brick extends Rectangle implements IVisitor
 		return this.image;
 	}
 
-	public abstract void visit(Ball ball);
+	//public abstract void visit(Ball ball);
 
-	public abstract void visit(ElementalBall regularBall );
+	public abstract void visit(ElementalBall elementalBall );
 
 	public abstract void visit(FireBall fireBall);
 
