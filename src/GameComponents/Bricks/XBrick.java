@@ -1,7 +1,12 @@
 package GameComponents.Bricks;
 import GameComponents.Balls.*;
+import GameComponents.Board;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by yaniv on 08/06/2016.
@@ -11,7 +16,7 @@ public class XBrick extends Brick
     public XBrick(int x, int y, int index)
     {
         super(x,y,index);
-        color = new Color(110, 44, 15);
+        image = Board.xImage;
     }
     @Override
     public  void visit(Ball ball)

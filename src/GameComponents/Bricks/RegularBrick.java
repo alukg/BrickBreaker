@@ -4,8 +4,12 @@ import GameComponents.Balls.*;
 import GameComponents.Board;
 import GameComponents.Game;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by yaniv on 09/06/2016.
@@ -15,7 +19,7 @@ public class RegularBrick extends Brick
     public RegularBrick(int x, int y, int index)
     {
         super(x,y,index);
-        this.color = Color.BLACK;
+        image = Board.regularImage;
     }
     @Override
     public  void visit(Ball ball)

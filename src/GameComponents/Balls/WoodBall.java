@@ -11,7 +11,7 @@ public class WoodBall extends Ball{
 
     public WoodBall(int ballx, int bally){
         super(ballx,bally);
-        color = new Color(110, 44, 15);
+        color = Color.GREEN;
     }
 
     @Override

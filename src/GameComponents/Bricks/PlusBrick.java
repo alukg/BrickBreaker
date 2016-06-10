@@ -1,8 +1,13 @@
 package GameComponents.Bricks;
 
 import GameComponents.Balls.*;
+import GameComponents.Board;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by yaniv on 08/06/2016.
@@ -12,7 +17,7 @@ public class PlusBrick extends Brick
     public PlusBrick(int x, int y, int index)
     {
         super(x,y,index);
-        this.color = Color.MAGENTA;
+        image = Board.plusImage;
     }
     @Override
     public  void visit(Ball ball)

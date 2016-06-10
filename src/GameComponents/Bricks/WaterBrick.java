@@ -1,8 +1,13 @@
 package GameComponents.Bricks;
 
 import GameComponents.Balls.*;
+import GameComponents.Board;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by yaniv on 08/06/2016.
@@ -12,7 +17,7 @@ public class WaterBrick extends Brick
     public WaterBrick(int x, int y, int index)
     {
         super(x,y,index);
-        color = Color.BLUE;
+        image = Board.waterImage;
     }
 
     @Override

@@ -3,10 +3,14 @@ package GameComponents;
 import GameComponents.Balls.*;
 import GameComponents.Bricks.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -33,9 +37,37 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 	public static Brick[] bricks = new Brick[80];
 
+	public static Image electricImage;
+	public static Image regularImage;
+	public static Image fireImage;
+	public static Image plusImage;
+	public static Image rectangleImage;
+	public static Image waterImage;
+	public static Image woodImage;
+	public static Image xImage;
+
+	public Image background;
+
 	//Constructors
 	public Board(Game game, int[][] bricks)
 	{
+		/**
+		 * Load game images.
+		 */
+		try {
+			electricImage = ImageIO.read(new File("design/Bricks/electricBrick.jpg"));
+			regularImage = ImageIO.read(new File("design/Bricks/regularBrick.jpg"));
+			fireImage = ImageIO.read(new File("design/Bricks/fireBrick.jpg"));
+			plusImage = ImageIO.read(new File("design/Bricks/plusBrick.jpg"));
+			rectangleImage = ImageIO.read(new File("design/Bricks/rectangleBrick.jpg"));
+			waterImage = ImageIO.read(new File("design/Bricks/waterBrick.jpg"));
+			woodImage = ImageIO.read(new File("design/Bricks/woodBrick.jpg"));
+			xImage = ImageIO.read(new File("design/Bricks/xBrick.jpg"));
+			background = ImageIO.read(new File("design/background.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		this.game = game;
 		for(int row=0;row<8;row++)
 		{
@@ -88,8 +120,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	}
 
 	public void paint (Graphics g){
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(0,0,649,600);
+		g.drawImage(background, 0, 0, null);
 		g.setColor(ball.getColor());
 		g.fillOval(ball.x, ball.y, ball.width, ball.height);
 		g.setColor(Color.BLACK);
@@ -101,8 +132,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 		for (int i=0;i<bricks.length;i++){
 			if(bricks[i] != null){
-				g.setColor(bricks[i].getColor());
-				g.fill3DRect(bricks[i].x, bricks[i].y, bricks[i].width, bricks[i].height, true);
+				g.drawImage(bricks[i].getImage(), bricks[i].x, bricks[i].y, null);
 			}
 		}
 	}
