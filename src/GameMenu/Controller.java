@@ -141,6 +141,8 @@ public class Controller extends JFrame {
     public class menuPress implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equals("Home")){
+                Game.deadBricks = 0;
+                Game.count = 0;
                 homeWindow.addLevelChoosePanel();
                 cards.show(getContentPane(), "Home");
             }

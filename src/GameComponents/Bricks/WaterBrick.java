@@ -22,7 +22,6 @@ public class WaterBrick extends Brick
     //brick disappear
     public void visit(ElementalBall elementalBall)
     {
-
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }

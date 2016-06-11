@@ -11,7 +11,7 @@ public class ElementalBall extends Ball{
 
     public ElementalBall(int ballx, int bally){
         super(ballx,bally);
-        color = Color.WHITE;
+        color = Color.BLACK;
     }
 
     @Override
