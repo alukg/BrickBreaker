@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class FireBall extends Ball{
 
-    public FireBall(int ballx, int bally){
+    public FireBall(double ballx, double bally){
         super(ballx,bally);
         color = Color.RED;
     }

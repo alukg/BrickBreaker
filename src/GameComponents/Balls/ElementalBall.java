@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class ElementalBall extends Ball{
 
-    public ElementalBall(int ballx, int bally){
+    public ElementalBall(double ballx, double bally){
         super(ballx,bally);
         color = Color.BLACK;
     }

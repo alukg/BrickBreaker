@@ -32,8 +32,10 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private boolean gameFinished = false;
 	public static boolean ballDisappear = false;
 	public static boolean ballMove = false;
-	public static int movey;
-	public static int movex;
+	public static double movey;
+	public static double movex;
+
+	Rectangle2D hitForPaint = null;
 
 	public static Brick[] bricks = new Brick[80];
 
@@ -67,6 +69,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		ballDisappear = false;
+		ballMove = false;
 
 		this.game = game;
 		for(int row=0;row<8;row++)
@@ -106,13 +111,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		}
 		ball = new FireBall(BALL_START_X,BALL_START_Y);
 
-		Random rand = new Random();
-		movex = rand.nextInt(7) -3;
+		chooseRandomDirection();
 
-		if(movex!=0)
-			movey = -4 + Math.abs(movex);
-		else
-			movey = -3;
 		this.addKeyListener(this);
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
@@ -120,10 +120,38 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 	}
 
+	private void chooseRandomDirection() {
+		Random rand = new Random();
+		int cases = rand.nextInt(8)+1;
+
+		if (cases == 1) {
+			movex = -3*Math.sqrt(0.1);
+			movey = -Math.sqrt(0.1);
+		} else if (cases == 2) {
+			movex = -Math.sqrt(0.5);
+			movey = -Math.sqrt(0.5);
+		} else if (cases == 3) {
+			movex = -Math.sqrt(0.1);
+			movey = -3*Math.sqrt(0.1);
+		} else if (cases == 4) {
+			movex = 0;
+			movey = -1;
+		} else if (cases == 5) {
+			movex = Math.sqrt(0.1);
+			movey = -3*Math.sqrt(0.1);
+		} else if (cases == 6) {
+			movex = Math.sqrt(0.5);
+			movey = -Math.sqrt(0.5);
+		} else {
+			movex = 3*Math.sqrt(0.1);
+			movey = -Math.sqrt(0.1);
+		}
+	}
+
 	public void paint (Graphics g){
 		g.drawImage(background, 0, 0, null);
 		g.setColor(ball.getColor());
-		g.fillOval(ball.x, ball.y, ball.width, ball.height);
+		g.fillRect(ball.x, ball.y, ball.width, ball.height);
 		g.setColor(Color.BLACK);
 		g.fill3DRect(bat.x, bat.y, bat.width, bat.height, true);
 		g.setColor(Color.GRAY);
@@ -136,6 +164,12 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				g.drawImage(bricks[i].getImage(), bricks[i].x, bricks[i].y, null);
 			}
 		}
+
+		if(hitForPaint != null){
+			System.out.println("paint point");
+			g.setColor(Color.MAGENTA);
+			g.fillOval((int)hitForPaint.getX(), (int)hitForPaint.getY(), 5, 5);
+		}
 	}
 
 	public void run()
@@ -147,6 +181,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 					if (bricks[i] != null) {
 						if (ball.intersects(bricks[i])) {
 							Rectangle2D r = bricks[i].createIntersection(ball);
+							hitForPaint = r;
 							System.out.println("intersects: " + r.getX() + " , " + r.getY());
 							ball.impact(bricks[i]);
 							Game.addHit();
@@ -161,8 +196,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 				repaint();
 
-				ball.x = ball.x + movex;
-				ball.y = ball.y + movey;
+				ball.addX(movex);
+				ball.addY(movey);
 
 				if (ball.x <= 0 || ball.x + ball.width >= 649) {
 					movex = -movex;
@@ -181,32 +216,32 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 					if (r.getY() <= 590) {
 						int dis = (int) (r.getX() - bat.getX());
 						if (dis < 13) {
-							movex = -3;
-							movey = -1;
+							movex = -3*Math.sqrt(0.1);
+							movey = -Math.sqrt(0.1);
 						} else if (dis >= 13 && dis < 23) {
-							movex = -2;
-							movey = -2;
+							movex = -Math.sqrt(0.5);
+							movey = -Math.sqrt(0.5);
 						} else if (dis >= 23 && dis < 35) {
-							movex = -1;
-							movey = -3;
+							movex = -Math.sqrt(0.1);
+							movey = -3*Math.sqrt(0.1);
 						} else if (dis >= 35 && dis < 45) {
 							movex = 0;
-							movey = -3;
-						} else if (dis >= 45 && dis < 57) {
-							movex = 1;
-							movey = -3;
-						} else if (dis >= 57 && dis < 67) {
-							movex = 2;
-							movey = -2;
-						} else {
-							movex = 3;
 							movey = -1;
+						} else if (dis >= 45 && dis < 57) {
+							movex = Math.sqrt(0.1);
+							movey = -3*Math.sqrt(0.1);
+						} else if (dis >= 57 && dis < 67) {
+							movex = Math.sqrt(0.5);
+							movey = -Math.sqrt(0.5);
+						} else {
+							movex = 3*Math.sqrt(0.1);
+							movey = -Math.sqrt(0.1);
 						}
 					}
 				}
 			}
 			try {
-				Thread.sleep(10);
+				Thread.sleep(30);
 			} catch (Exception e)
 			{
 
@@ -226,27 +261,27 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		}
 		if(keyCode == KeyEvent.VK_1)
 		{
-			ball = new FireBall(ball.x,ball.y);
+			ball = new FireBall(ball.dballx,ball.dbally);
 			repaint();
 		}
 		if(keyCode == KeyEvent.VK_2)
 		{
-			ball = new WaterBall(ball.x,ball.y);
+			ball = new WaterBall(ball.dballx,ball.dbally);
 			repaint();
 		}
 		if(keyCode == KeyEvent.VK_3)
 		{
-			ball = new ElectricBall(ball.x,ball.y);
+			ball = new ElectricBall(ball.dballx,ball.dbally);
 			repaint();
 		}
 		if(keyCode == KeyEvent.VK_4)
 		{
-			ball = new WoodBall(ball.x,ball.y);
+			ball = new WoodBall(ball.dballx,ball.dbally);
 			repaint();
 		}
 		if(keyCode == KeyEvent.VK_F7)
 		{
-			ball = new ElementalBall(ball.x,ball.y);
+			ball = new ElementalBall(ball.dballx,ball.dbally);
 			repaint();
 		}
 	}
@@ -293,12 +328,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		bat.y = BAT_START_Y;
 		ballDisappear = false;
 		//ballMove = true;
-		Random rand = new Random();
-		movex = rand.nextInt(7) -3;
-		if(movex!=0)
-			movey = -4 + Math.abs(movex);
-		else
-			movey = -3;
+		chooseRandomDirection();
 		timerForBallDown.stop();
 		repaint();
 	}

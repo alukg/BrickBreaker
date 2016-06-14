@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class WoodBall extends Ball{
 
-    public WoodBall(int ballx, int bally){
+    public WoodBall(double ballx, double bally){
         super(ballx,bally);
         color = Color.GREEN;
     }
