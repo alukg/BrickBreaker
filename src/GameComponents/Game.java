@@ -57,9 +57,6 @@ public class Game extends PanelModel implements ActionListener
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.add(this.board,BorderLayout.CENTER);
 		this.time.start();
-
-		Thread thread = new Thread(board);
-		thread.start();
 	}
 
 	//Getters and Setters
@@ -131,6 +128,7 @@ public class Game extends PanelModel implements ActionListener
 	 **/
 	public void finish()
 	{
+		board.thread.stop();
 		this.time.stop();
 		int levelScore = Math.max(0, 1500- count -2*(min*60+sec));
 		deadBricks = 0;
