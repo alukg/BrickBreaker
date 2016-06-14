@@ -33,12 +33,12 @@ public class FireBrick extends Brick
     {
         Rectangle2D hitPoint = this.createIntersection(fireBall);
         //Change direction
-        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
         {
             System.out.println("change x direction");
             Board.movex = -Board.movex;
-        } else
+        }
+        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
         {
             System.out.println("change y direction");
             Board.movey = -Board.movey;
@@ -68,14 +68,16 @@ public class FireBrick extends Brick
     public void visit(ElectricBall electricBall)
     {
             Rectangle2D hitPoint = this.createIntersection(electricBall);
-            if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                    (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
-            {
-                Board.movex = -Board.movex;
-            } else
-            {
-                Board.movey = -Board.movey;
-            }
+        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
+        {
+            System.out.println("change x direction");
+            Board.movex = -Board.movex;
+        }
+        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
+        {
+            System.out.println("change y direction");
+            Board.movey = -Board.movey;
+        }
             Board.bricks[this.index] = null;
             Game.addDeadBrick();
     }

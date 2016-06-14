@@ -35,12 +35,14 @@ public class RegularBrick extends Brick
     public void visit(FireBall fireBall)
     {
         Rectangle2D hitPoint = this.createIntersection(fireBall);
-        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
         {
+            System.out.println("change x direction");
             Board.movex = -Board.movex;
-        } else
+        }
+        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
         {
+            System.out.println("change y direction");
             Board.movey = -Board.movey;
         }
          Board.bricks[this.index] = null;
@@ -52,12 +54,14 @@ public class RegularBrick extends Brick
     public void visit(WaterBall waterBall)
     {
         Rectangle2D hitPoint = this.createIntersection(waterBall);
-        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
         {
+            System.out.println("change x direction");
             Board.movex = -Board.movex;
-        } else
+        }
+        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
         {
+            System.out.println("change y direction");
             Board.movey = -Board.movey;
         }
         Board.bricks[this.index] = null;
@@ -68,12 +72,14 @@ public class RegularBrick extends Brick
     public void visit(WoodBall woodBall)
     {
         Rectangle2D hitPoint = this.createIntersection(woodBall);
-        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
         {
+            System.out.println("change x direction");
             Board.movex = -Board.movex;
-        } else
+        }
+        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
         {
+            System.out.println("change y direction");
             Board.movey = -Board.movey;
         }
         Board.bricks[this.index] = null;
@@ -85,12 +91,14 @@ public class RegularBrick extends Brick
     public void visit(ElectricBall electricBall)
     {
         Rectangle2D hitPoint = this.createIntersection(electricBall);
-        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
         {
+            System.out.println("change x direction");
             Board.movex = -Board.movex;
-        } else
+        }
+        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
         {
+            System.out.println("change y direction");
             Board.movey = -Board.movey;
         }
         Board.bricks[this.index] = null;

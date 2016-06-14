@@ -40,12 +40,14 @@ public class WaterBrick extends Brick
     {
         Rectangle2D hitPoint = this.createIntersection(waterBall);
         //Change direction
-        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
         {
+            System.out.println("change x direction");
             Board.movex = -Board.movex;
-        } else
+        }
+        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
         {
+            System.out.println("change y direction");
             Board.movey = -Board.movey;
         }
     }
@@ -54,12 +56,14 @@ public class WaterBrick extends Brick
     public void visit(WoodBall woodBall)
     {
         Rectangle2D hitPoint = this.createIntersection(woodBall);
-        if( ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
-                (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
+        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
         {
+            System.out.println("change x direction");
             Board.movex = -Board.movex;
-        } else
+        }
+        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
         {
+            System.out.println("change y direction");
             Board.movey = -Board.movey;
         }
         Board.bricks[this.index] = null;
