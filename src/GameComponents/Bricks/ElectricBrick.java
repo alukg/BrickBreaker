@@ -34,11 +34,9 @@ public class ElectricBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
-            fireBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
-            fireBall.addYByOne();
         }
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
@@ -70,11 +68,9 @@ public class ElectricBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
-            electricBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
-            electricBall.addXByOne();
         }
     }
 }

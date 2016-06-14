@@ -21,10 +21,8 @@ public class XBrick extends Brick
         if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
             Board.movex = -Board.movex;
-            elementalBall.addXByOne();
         } else {
             Board.movey = -Board.movey;
-            elementalBall.addYByOne();
         }
         int row = index / 10;
         int col = index % 10;
@@ -91,10 +89,8 @@ public class XBrick extends Brick
         if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
             Board.movex = -Board.movex;
-            fireBall.addXByOne();
         } else {
             Board.movey = -Board.movey;
-            fireBall.addYByOne();
         }
         int row = index / 10;
         int col = index % 10;
@@ -160,10 +156,8 @@ public class XBrick extends Brick
         if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
             Board.movex = -Board.movex;
-            waterBall.addXByOne();
         } else {
             Board.movey = -Board.movey;
-            waterBall.addYByOne();
         }
         int row = index / 10;
         int col = index % 10;
@@ -230,10 +224,8 @@ public class XBrick extends Brick
         if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
             Board.movex = -Board.movex;
-            woodBall.addXByOne();
         } else {
             Board.movey = -Board.movey;
-            woodBall.addYByOne();
         }
         int row = index / 10;
         int col = index % 10;
@@ -299,10 +291,8 @@ public class XBrick extends Brick
         if (((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) &&
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y)) {
             Board.movex = -Board.movex;
-            electricBall.addXByOne();
         } else {
             Board.movey = -Board.movey;
-            electricBall.addYByOne();
         }
         int row = index / 10;
         int col = index % 10;

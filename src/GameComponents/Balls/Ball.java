@@ -17,14 +17,4 @@ abstract public class Ball extends Rectangle implements IVisitable{
         return color;
     }
 
-    public void addXByOne(){
-        if(x>0) x++;
-        else x--;
-    }
-
-    public void addYByOne(){
-        if(y>0) y++;
-        else y--;
-    }
-
 }

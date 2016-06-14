@@ -146,17 +146,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				for (int i = 0; i < bricks.length; i++) {
 					if (bricks[i] != null) {
 						if (ball.intersects(bricks[i])) {
-							//System.out.println("Intersection happened wirth brick "+i);
-							//Rectangle2D r = bricks[i].createIntersection(ball);
-							//if ((r.getX() == bricks[i].getX() || r.getX() == (bricks[i].getX() + bricks[i].width - 1)) && (r.getY() <= bricks[i].getY() + bricks[i].height - 2 && r.getY() > bricks[i].getY()))
-							//{
-							//	movex = -movex;
+							Rectangle2D r = bricks[i].createIntersection(ball);
+							System.out.println("intersects: " + r.getX() + " , " + r.getY());
 							ball.impact(bricks[i]);
-							//}
-							//else
-							//{
-							//	bricks[i].visit((ElementalBall)(ball));
-							//movey = -movey;
 							Game.addHit();
 							if (game.getDeadBricks() == 80) {
 								gameFinished = true;
@@ -301,7 +293,12 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		bat.y = BAT_START_Y;
 		ballDisappear = false;
 		//ballMove = true;
-		movey = -movey;
+		Random rand = new Random();
+		movex = rand.nextInt(7) -3;
+		if(movex!=0)
+			movey = -4 + Math.abs(movex);
+		else
+			movey = -3;
 		timerForBallDown.stop();
 		repaint();
 	}
