@@ -37,9 +37,11 @@ public class FireBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
+            fireBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
+            fireBall.addYByOne();
         }
     }
     //Direction doesn't changed
@@ -70,9 +72,11 @@ public class FireBrick extends Brick
                     (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
             {
                 Board.movex = -Board.movex;
+                electricBall.addXByOne();
             } else
             {
                 Board.movey = -Board.movey;
+                electricBall.addYByOne();
             }
             Board.bricks[this.index] = null;
             Game.addDeadBrick();

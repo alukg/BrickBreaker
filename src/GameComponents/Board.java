@@ -157,7 +157,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 							//{
 							//	bricks[i].visit((ElementalBall)(ball));
 							//movey = -movey;
-							Game.count++;
+							Game.addHit();
 							if (game.getDeadBricks() == 80) {
 								gameFinished = true;
 							}

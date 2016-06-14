@@ -39,9 +39,11 @@ public class RegularBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
+            fireBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
+            fireBall.addYByOne();
         }
          Board.bricks[this.index] = null;
         Game.addDeadBrick();
@@ -56,9 +58,11 @@ public class RegularBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
+            waterBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
+            waterBall.addYByOne();
         }
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
@@ -72,9 +76,11 @@ public class RegularBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
+            woodBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
+            woodBall.addYByOne();
         }
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
@@ -89,9 +95,11 @@ public class RegularBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
+            electricBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
+            electricBall.addYByOne();
         }
         Board.bricks[this.index] = null;
         Game.addDeadBrick();

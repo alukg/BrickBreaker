@@ -44,9 +44,11 @@ public class WaterBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
+            waterBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
+            waterBall.addYByOne();
         }
     }
     //Direction change
@@ -58,9 +60,11 @@ public class WaterBrick extends Brick
                 (hitPoint.getY() <= this.y + this.height - 2 && hitPoint.getX() > this.y))
         {
             Board.movex = -Board.movex;
+            woodBall.addXByOne();
         } else
         {
             Board.movey = -Board.movey;
+            woodBall.addYByOne();
         }
         Board.bricks[this.index] = null;
         Game.addDeadBrick();

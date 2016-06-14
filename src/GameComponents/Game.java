@@ -21,6 +21,7 @@ public class Game extends PanelModel implements ActionListener
 	private Integer bestScore;
 	private static int min=0,sec=0;
 	private JLabel labelTimer;
+	private static JLabel labelHits;
 	JButton homeButton;
 	public static int deadBricks = 0;
 	public static int count = 0;
@@ -35,6 +36,11 @@ public class Game extends PanelModel implements ActionListener
 		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
 		this.time = new Timer(1000, this);
 		menuPanel.add(labelTimer);
+
+		labelHits = new JLabel("Hits: " + "0",SwingConstants.CENTER);
+		labelHits.setForeground(Color.WHITE);
+		labelHits.setFont(new Font(labelHits.getFont().getFontName(),Font.BOLD,20));
+		menuPanel.add(labelHits);
 
 		JLabel labelBestTime = new JLabel("Best score is : "+this.bestScore,SwingConstants.CENTER);
 		labelBestTime.setForeground(Color.WHITE);
@@ -105,6 +111,11 @@ public class Game extends PanelModel implements ActionListener
 				sec = 0;
 			}
 		}
+	}
+
+	public static void addHit(){
+		count++;
+		labelHits.setText("Hits: "+count);
 	}
 
 	public static void addDeadBrick(){
