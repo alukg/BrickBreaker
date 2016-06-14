@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -27,9 +26,11 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	private final int BAT_START_Y = 590;
 
 	private Ball ball;
-	private Rectangle bat = new Rectangle(BAT_START_X,BAT_START_Y,80,10);
+	private Rectangle bat;
 
-	private boolean gameFinished = false;
+	public static Thread thread;
+
+	private boolean gameFinished;
 	public static boolean ballDisappear = false;
 	public static boolean ballMove = false;
 	public static double movey;
@@ -37,7 +38,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 	Rectangle2D hitForPaint = null;
 
-	public static Brick[] bricks = new Brick[80];
+	public static Brick[] bricks;
 
 	public static Image electricImage;
 	public static Image regularImage;
@@ -51,7 +52,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	public Image background;
 
 	//Constructors
-	public Board(Game game, int[][] bricks)
+	public Board(Game game, int[][] bricksArr)
 	{
 		/**
 		 * Load game images.
@@ -70,16 +71,23 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 			e.printStackTrace();
 		}
 
+		ball = new FireBall(BALL_START_X,BALL_START_Y);
+		ball.x = BALL_START_X;
+		ball.dballx = BALL_START_X;
+		ball.y = BALL_START_Y;
+		ball.dbally = BALL_START_Y;
+		bat = new Rectangle(BAT_START_X,BAT_START_Y,80,10);
 		ballDisappear = false;
 		ballMove = false;
-
+		gameFinished = false;
 		this.game = game;
+		bricks = new Brick[80];
 		for(int row=0;row<8;row++)
 		{
 			for(int col=0;col<10;col++)
 			{
 				//Create each brick by his type.
-				switch (bricks[row][col])
+				switch (bricksArr[row][col])
 				{
 					case 0:
 						this.bricks[row*10+col] = new RegularBrick(75+col*50,80+row*20,row*10+col);
@@ -109,7 +117,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 			}
 		}
-		ball = new FireBall(BALL_START_X,BALL_START_Y);
 
 		chooseRandomDirection();
 
@@ -118,6 +125,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		this.addMouseListener(this);
 		timerForBallDown = new Timer(3000, this);
 
+		thread = new Thread(this);
+		thread.start();
 	}
 
 	private void chooseRandomDirection() {
@@ -192,12 +201,12 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 						}
 					}
 				}
-
-
 				repaint();
 
 				ball.addX(movex);
 				ball.addY(movey);
+
+				System.out.println("ball point: " + ball.dballx + " , " + ball.dbally);
 
 				if (ball.x <= 0 || ball.x + ball.width >= 649) {
 					movex = -movex;
@@ -241,7 +250,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				}
 			}
 			try {
-				Thread.sleep(30);
+				thread.sleep(10);
 			} catch (Exception e)
 			{
 
@@ -323,7 +332,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	public void actionPerformed(ActionEvent e)
 	{
 		ball.x = BALL_START_X;
+		ball.dballx = BALL_START_X;
 		ball.y = BALL_START_Y;
+		ball.dbally = BALL_START_Y;
 		bat.x =  BAT_START_X;
 		bat.y = BAT_START_Y;
 		ballDisappear = false;
