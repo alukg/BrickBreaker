@@ -21,8 +21,6 @@ public class HomeWindow extends PanelModel {
 
     private Controller controller;
     private JPanel levelsChoose;
-    private Clip clip; //the music controller.
-    private JButton music;
 
     /**
      * Constructor.
@@ -33,24 +31,11 @@ public class HomeWindow extends PanelModel {
 
         JButton exit = new JButtonWithIcon("design\\exitPirate.jpg");
         exit.addActionListener(e -> {controller.saveDB(); System.exit(0);});
-        music = new JButtonWithIcon("design\\musicOffPirate.jpg");
-        music.addActionListener(new MusicListener());
         menuPanel.add(exit);
-        menuPanel.add(music);
 
         levelsChoose = null;
 
         addLevelChoosePanel(); //add the levels from the DB to the panel.
-
-        //Add music
-     /*   try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("PiratesOfTheCaribbean.wav").getAbsoluteFile());
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream); //open the sound file.
-        } catch(Exception ex) {
-            System.out.println("Error with playing sound.");
-            ex.printStackTrace();
-        }*/
     }
 
     /**
@@ -92,28 +77,6 @@ public class HomeWindow extends PanelModel {
                 levelButton.addActionListener(controller.new gamePress());
                 levelsChoose.add(levelButton);
                 i++;
-            }
-        }
-    }
-
-    /**
-     * Listener for the music player.
-     */
-    public class MusicListener implements ActionListener {
-
-        private boolean musicOn = false; //decide if the music is on or off.
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(musicOn == true){
-                musicOn = false;
-                music.setIcon(new ImageIcon("design\\musicOffPirate.jpg")); //change the music icon to on.
-                clip.stop();
-            }
-            else{
-                musicOn = true;
-                music.setIcon(new ImageIcon("design\\musicOnPirate.jpg")); //change the music icon to off.
-                clip.start();
             }
         }
     }
