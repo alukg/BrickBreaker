@@ -38,16 +38,7 @@ public class WoodBrick  extends Brick
     public void visit(WaterBall waterBall)
     {
         Rectangle2D hitPoint = this.createIntersection(waterBall);
-        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
-        {
-            System.out.println("change x direction");
-            Board.movex = -Board.movex;
-        }
-        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
-        {
-            System.out.println("change y direction");
-            Board.movey = -Board.movey;
-        }
+        ChangeDirection(hitPoint,this);
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
@@ -56,16 +47,7 @@ public class WoodBrick  extends Brick
     public void visit(WoodBall woodBall)
     {
         Rectangle2D hitPoint = this.createIntersection(woodBall);
-        //Change direction
-        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1)) {
-            System.out.println("change x direction");
-            Board.movex = -Board.movex;
-        }
-        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
-        {
-            System.out.println("change y direction");
-            Board.movey = -Board.movey;
-        }
+        ChangeDirection(hitPoint,this);
     }
     //Ball disappear
     //brick doesn't disappear

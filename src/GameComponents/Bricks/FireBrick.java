@@ -32,17 +32,7 @@ public class FireBrick extends Brick
     public void visit(FireBall fireBall)
     {
         Rectangle2D hitPoint = this.createIntersection(fireBall);
-        //Change direction
-        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
-        {
-            System.out.println("change x direction");
-            Board.movex = -Board.movex;
-        }
-        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
-        {
-            System.out.println("change y direction");
-            Board.movey = -Board.movey;
-        }
+       ChangeDirection(hitPoint,this);
     }
     //Direction doesn't changed
     //brick disappear
@@ -67,18 +57,9 @@ public class FireBrick extends Brick
     //brick disappear
     public void visit(ElectricBall electricBall)
     {
-            Rectangle2D hitPoint = this.createIntersection(electricBall);
-        if ((hitPoint.getX() == this.x || hitPoint.getX() == this.x + this.width - 1))
-        {
-            System.out.println("change x direction");
-            Board.movex = -Board.movex;
-        }
-        if((hitPoint.getY() == this.y || hitPoint.getY() == this.y+ this.height -1))
-        {
-            System.out.println("change y direction");
-            Board.movey = -Board.movey;
-        }
-            Board.bricks[this.index] = null;
+        Rectangle2D hitPoint = this.createIntersection(electricBall);
+        ChangeDirection(hitPoint,this);
+        Board.bricks[this.index] = null;
             Game.addDeadBrick();
     }
 }

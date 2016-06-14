@@ -250,8 +250,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				}
 			}
 			try {
-				thread.sleep(10);
-			} catch (Exception e)
+				thread.sleep(2);
+			}
+			catch (Exception e)
 			{
 
 			}
