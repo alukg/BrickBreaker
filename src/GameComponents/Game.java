@@ -129,6 +129,7 @@ public class Game extends PanelModel implements ActionListener
 	public void finish()
 	{
 		board.thread.stop();
+		board.thread = null;
 		this.time.stop();
 		int levelScore = Math.max(0, 1500- count -2*(min*60+sec));
 		deadBricks = 0;

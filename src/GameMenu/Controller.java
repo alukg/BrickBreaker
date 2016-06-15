@@ -142,6 +142,7 @@ public class Controller extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equals("Home")){
                 gameWindow.getBoard().thread.stop();
+                gameWindow.getBoard().thread = null;
                 Game.deadBricks = 0;
                 Game.count = 0;
                 homeWindow.addLevelChoosePanel();

@@ -160,7 +160,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	public void paint (Graphics g){
 		g.drawImage(background, 0, 0, null);
 		g.setColor(ball.getColor());
-		g.fillRect(ball.x, ball.y, ball.width, ball.height);
+		g.fillOval(ball.x, ball.y, ball.width, ball.height);
 		g.setColor(Color.BLACK);
 		g.fill3DRect(bat.x, bat.y, bat.width, bat.height, true);
 		g.setColor(Color.GRAY);
