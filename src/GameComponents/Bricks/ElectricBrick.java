@@ -8,25 +8,32 @@ import java.awt.geom.Rectangle2D;
 
 
 /**
- * Created by yaniv on 08/06/2016.
+ *  The class that represent an electric brick
  */
 public class ElectricBrick extends Brick
 {
+    //Constructor
     public ElectricBrick(int x, int y, int index)
     {
         super(x,y,index);
         image = Board.electricImage;
     }
-    //Direction doesn't changed
-    //brick disappear
+    /**
+     * The function kill the brick.
+     *
+     * @param  elementalBall  saves the ball that hit the brick
+     */
     public void visit(ElementalBall elementalBall)
     {
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
 
-    //Direction change
-    //brick disappear
+    /**
+     * The function change the ball direction and kill the brick.
+     *
+     * @param  fireBall  saves the ball that hit the brick
+     */
     public void visit(FireBall fireBall )
     {
         Rectangle2D hitPoint = this.createIntersection(fireBall);
@@ -34,25 +41,32 @@ public class ElectricBrick extends Brick
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-
-
-    //Ball disappear
-    //brick doesn't disappear
+    /**
+     * The function disappears the ball and takes the ball and bat to their initial point.
+     *
+     * @param  waterBall  saves the ball that hit the brick
+     */
     public void visit(WaterBall waterBall)
     {
         Board.ballMove = false;
         Board.ballDisappear = true;
         Board.timerForBallDown.start();
     }
-    //Direction doesn't change
-    //brick disappear
+    /**
+     * The function kill the brick.
+     *
+     * @param  woodBall  saves the ball that hit the brick
+     */
     public void visit(WoodBall woodBall)
     {
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-    //Direction change
-    //brick doesn't disappear
+    /**
+     * The function change the ball direction.
+     *
+     * @param  electricBall  saves the ball that hit the brick
+     */
     public void visit(ElectricBall electricBall)
     {
         Rectangle2D hitPoint = this.createIntersection(electricBall);

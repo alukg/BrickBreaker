@@ -12,26 +12,33 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by yaniv on 09/06/2016.
+ * *  The class that represent an regular brick
+
  */
 public class RegularBrick extends Brick
 {
+    //Constructor
     public RegularBrick(int x, int y, int index)
     {
         super(x,y,index);
         image = Board.regularImage;
     }
-    //Direction doesn't changed
-    //brick disappear
+    /**
+     * The function kill the brick.
+     *
+     * @param  elementalBall  saves the ball that hit the brick
+     */
     public void visit(ElementalBall elementalBall)
     {
 
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-
-    //Direction changed
-    //brick disappear
+    /**
+     * The function change the ball direction and kill the brick.
+     *
+     * @param  fireBall  saves the ball that hit the brick
+     */
     public void visit(FireBall fireBall)
     {
         Rectangle2D hitPoint = this.createIntersection(fireBall);
@@ -39,9 +46,11 @@ public class RegularBrick extends Brick
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-
-    //Direction changed
-    //brick disappear
+    /**
+     * The function change the ball direction and kill the brick.
+     *
+     * @param  waterBall  saves the ball that hit the brick
+     */
     public void visit(WaterBall waterBall)
     {
         Rectangle2D hitPoint = this.createIntersection(waterBall);
@@ -49,8 +58,11 @@ public class RegularBrick extends Brick
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-    //Direction changed
-    //brick disappear
+    /**
+ * The function change the ball direction and kill the brick.
+ *
+ * @param  woodBall  saves the ball that hit the brick
+ */
     public void visit(WoodBall woodBall)
     {
         Rectangle2D hitPoint = this.createIntersection(woodBall);
@@ -58,9 +70,11 @@ public class RegularBrick extends Brick
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-
-    //Direction changed
-    //brick disappear
+    /**
+     * The function change the ball direction and kill the brick.
+     *
+     * @param  electricBall  saves the ball that hit the brick
+     */
     public void visit(ElectricBall electricBall)
     {
         Rectangle2D hitPoint = this.createIntersection(electricBall);

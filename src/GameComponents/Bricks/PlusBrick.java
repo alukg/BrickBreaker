@@ -9,20 +9,25 @@ import java.awt.geom.Rectangle2D;
 
 
 /**
- * Created by yaniv on 08/06/2016.
+ *  The class that represent an plus brick
  */
 public class PlusBrick extends Brick
 {
+    //Constructor
     public PlusBrick(int x, int y, int index)
     {
         super(x,y,index);
         image = Board.plusImage;
     }
-
-    public void visit(ElementalBall elementalBall)
+    /**
+     * Private function that changes the ball direction and
+     * kill all the bricks that are in the same row or column with the specific brick
+     *
+     * @param  ball saves the ball that hit the brick
+     */
+    private void ballIntersection(Ball ball)
     {
-
-        Rectangle2D hitPoint = this.createIntersection(elementalBall);
+        Rectangle2D hitPoint = this.createIntersection(ball);
         ChangeDirection(hitPoint,this);
         Board.bricks[this.index] = null;
         int row = index /10;
@@ -46,97 +51,54 @@ public class PlusBrick extends Brick
             }
         }
     }
-
-    @Override
-    public void visit(FireBall fireBall ) {
-
-        Rectangle2D hitPoint = this.createIntersection(fireBall);
-        ChangeDirection(hitPoint,this);
-        int row = index / 10;
-        int col = index % 10;
-        //Kill all bricks in same col;
-        for (int i = 0; i < 8; i++)
-        {
-            if (Board.bricks[i * 10 + col] != null)
-            {
-                Board.bricks[i * 10 + col] = null;
-                Game.addDeadBrick();
-            }
-        }
-        //Kill all bricks in same row;
-        for (int i = 0; i < 10; i++)
-        {
-            if (Board.bricks[row*10 + i] != null) {
-                Board.bricks[row*10 + i] = null;
-                Game.addDeadBrick();
-            }
-        }
-
+    /**
+     * The function change the ball direction and
+     * kill all the bricks that are in the same row or column with the specific brick
+     *
+     * @param  elementalBall saves the ball that hit the brick
+     */
+    public void visit(ElementalBall elementalBall)
+    {
+        ballIntersection(elementalBall);
     }
-
+    /**
+     * The function change the ball direction and
+     * kill all the bricks that are in the same row or column with the specific brick
+     *
+     * @param  fireBall saves the ball that hit the brick
+     */
+    public void visit(FireBall fireBall )
+    {
+        ballIntersection(fireBall);
+    }
+    /**
+     * The function change the ball direction and
+     * kill all the bricks that are in the same row or column with the specific brick
+     *
+     * @param  waterBall saves the ball that hit the brick
+     */
     public void visit(WaterBall waterBall) {
 
-        Rectangle2D hitPoint = this.createIntersection(waterBall);
-        ChangeDirection(hitPoint,this);
-        int row = index / 10;
-        int col = index % 10;
-        //Kill all bricks in same col;
-        for (int i = 0; i < 8; i++) {
-            if (Board.bricks[i * 10 + col] != null) {
-                Board.bricks[i * 10 + col] = null;
-                Game.addDeadBrick();
-            }
-        }
-        //Kill all bricks in same row;
-        for (int i = 0; i < 10; i++) {
-            if (Board.bricks[row * 10 + i] != null) {
-                Board.bricks[row * 10 + i] = null;
-                Game.addDeadBrick();
-            }
-        }
+        ballIntersection(waterBall);
     }
-
+    /**
+     * The function change the ball direction and
+     * kill all the bricks that are in the same row or column with the specific brick
+     *
+     * @param  woodBall saves the ball that hit the brick
+     */
     public void visit(WoodBall woodBall)  {
 
-        Rectangle2D hitPoint = this.createIntersection(woodBall);
-        ChangeDirection(hitPoint,this);
-        int row = index / 10;
-        int col = index % 10;
-        //Kill all bricks in same col;
-        for (int i = 0; i < 8; i++) {
-            if (Board.bricks[i * 10 + col] != null) {
-                Board.bricks[i * 10 + col] = null;
-                Game.addDeadBrick();
-            }
-        }
-        //Kill all bricks in same row;
-        for (int i = 0; i < 10; i++) {
-            if (Board.bricks[row * 10 + i] != null) {
-                Board.bricks[row * 10 + i] = null;
-                Game.addDeadBrick();
-            }
-        }
+        ballIntersection(woodBall);
     }
-
-    public void visit(ElectricBall electricBall) {
-
-        Rectangle2D hitPoint = this.createIntersection(electricBall);
-        ChangeDirection(hitPoint,this);
-        int row = index / 10;
-        int col = index % 10;
-        //Kill all bricks in same col;
-        for (int i = 0; i < 8; i++) {
-            if (Board.bricks[i * 10 + col] != null) {
-                Board.bricks[i * 10 + col] = null;
-                Game.addDeadBrick();
-            }
-        }
-        //Kill all bricks in same row;
-        for (int i = 0; i < 10; i++) {
-            if (Board.bricks[row * 10 + i] != null) {
-                Board.bricks[row * 10 + i] = null;
-                Game.addDeadBrick();
-            }
-        }
+    /**
+     * The function change the ball direction and
+     * kill all the bricks that are in the same row or column with the specific brick
+     *
+     * @param  electricBall saves the ball that hit the brick
+     */
+    public void visit(ElectricBall electricBall)
+    {
+        ballIntersection(electricBall);
     }
 }
