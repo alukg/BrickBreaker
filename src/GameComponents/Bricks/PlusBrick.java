@@ -30,6 +30,7 @@ public class PlusBrick extends Brick
         Rectangle2D hitPoint = this.createIntersection(ball);
         ChangeDirection(hitPoint,this);
         Board.bricks[this.index] = null;
+        Game.addDeadBrick();
         int row = index /10;
         int col = index % 10;
         //Kill all bricks in same col;
