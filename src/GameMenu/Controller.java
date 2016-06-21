@@ -141,8 +141,6 @@ public class Controller extends JFrame {
     public class menuPress implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equals("Home")){
-                gameWindow.getBoard().thread.stop();
-                gameWindow.getBoard().thread = null; //destroy the thread of the last game.
                 Game.deadBricks = 0;
                 Game.count = 0;
                 homeWindow.addLevelChoosePanel();
