@@ -37,8 +37,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	public static double movey;
 	public static double movex;
 
-	Rectangle2D hitForPaint = null;
-
 	public static Brick[] bricks;
 
 	public static Image electricImage;
@@ -186,12 +184,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				g.drawImage(bricks[i].getImage(), bricks[i].x, bricks[i].y, null);
 			}
 		}
-
-		/*if(hitForPaint != null){
-			System.out.println("paint point");
-			g.setColor(Color.MAGENTA);
-			g.fillOval((int)hitForPaint.getX(), (int)hitForPaint.getY(), 5, 5);
-		}*/
 	}
 	/**
 	 * The function that runs the brick.
@@ -204,9 +196,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				for (int i = 0; i < bricks.length; i++) {
 					if (bricks[i] != null) {
 						if (ball.intersects(bricks[i])) {
-							Rectangle2D r = bricks[i].createIntersection(ball);
-							hitForPaint = r;
-							//System.out.println("intersects: " + r.getX() + " , " + r.getY());
 							ball.impact(bricks[i]);
 							Game.addHit();
 							if (game.getDeadBricks() == 80) {
@@ -220,8 +209,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 
 				ball.addX(movex);
 				ball.addY(movey);
-
-				//System.out.println("ball point: " + ball.dballx + " , " + ball.dbally);
 
 				if (ball.x <= 0 || ball.x + ball.width >= 649) {
 					movex = -movex;
@@ -281,12 +268,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	 ***/
 	public void keyPressed(KeyEvent event)
 	{
-		//System.out.println("Key Pressed");
 		int keyCode = event.getKeyCode();
-		/*if(keyCode == KeyEvent.VK_SPACE)
-		{
-			ballMove = true;
-		}*/
 		if(keyCode == KeyEvent.VK_1)
 		{
 			ball = new FireBall(ball.dballx,ball.dbally);
@@ -340,7 +322,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		if(ballMove)
 		{
 			Point locationOnPanel = e.getPoint();
-			//System.out.println("Mouse location is " + locationOnPanel.getX());
 			if (locationOnPanel.getX() <= 570) {
 				bat.x = (int) (locationOnPanel.getX());
 				repaint();
@@ -363,7 +344,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		bat.x =  BAT_START_X;
 		bat.y = BAT_START_Y;
 		ballDisappear = false;
-		//ballMove = true;
 		chooseRandomDirection();
 		timerForBallDown.stop();
 		repaint();
@@ -374,12 +354,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	 * @parm  e saves the mouse event details.
 	 ***/	public void mouseClicked(MouseEvent e)
 	{
-		//System.out.println("Mouse clicked");
-		//int keyCode = event.getKeyCode();
-		//if(keyCode == KeyEvent.VK_SPACE)
-		//{
-			ballMove = true;
-		//}
+		ballMove = true;
 	}
 
 	@Override
