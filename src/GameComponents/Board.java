@@ -5,12 +5,14 @@ import GameComponents.Bricks.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
+import java.util.*;
+import java.util.List;
 
 /**
  * The class that represents the board in the game.
@@ -90,28 +92,28 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				switch (bricksArr[row][col])
 				{
 					case 0:
-						this.bricks[row*10+col] = new RegularBrick(75+col*50,80+row*20,row*10+col);
+						this.bricks[row*10+col] = new RegularBrick(75+col*50,80+row*27,row*10+col);
 						break;
 					case 1:
-						this.bricks[row*10+col] = new FireBrick(75+col*50,80+row*20,row*10+col);
+						this.bricks[row*10+col] = new FireBrick(75+col*50,80+row*27,row*10+col);
 						break;
 					case 2:
-						this.bricks[row*10+col] = new WaterBrick(75+col*50,80+row*20,row*10+col);
+						this.bricks[row*10+col] = new WaterBrick(75+col*50,80+row*27,row*10+col);
 						break;
 					case 3:
-						this.bricks[row*10+col] = new ElectricBrick(75+col*50,80+row*20,row*10+col);
+						this.bricks[row*10+col] = new ElectricBrick(75+col*50,80+row*27,row*10+col);
 						break;
 					case 4:
-						this.bricks[row*10+col] = new WoodBrick(75+col*50,80+row*20,row*10+col);
+						this.bricks[row*10+col] = new WoodBrick(75+col*50,80+row*27,row*10+col);
 						break;
 					case 5:
-						this.bricks[row*10+col] = new XBrick(75+col*50,80+row*20,row*10+col);
+						this.bricks[row*10+col] = new XBrick(75+col*50,80+row*27,row*10+col);
 						break;
 					case 6:
-						this.bricks[row*10+col] = new PlusBrick(75+col*50,80+row*20,row*10+col);
+						this.bricks[row*10+col] = new PlusBrick(75+col*50,80+row*27,row*10+col);
 						break;
 					case 7:
-						this.bricks[row*10+col] = new RectangleBrick(75+col*50,80+row*20,row*10+col);
+						this.bricks[row*10+col] = new RectangleBrick(75+col*50,80+row*27,row*10+col);
 						break;
 				}
 
@@ -175,7 +177,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		}
 
 		if(hitForPaint != null){
-			System.out.println("paint point");
+			//System.out.println("paint point");
 			g.setColor(Color.MAGENTA);
 			g.fillOval((int)hitForPaint.getX(), (int)hitForPaint.getY(), 5, 5);
 		}
@@ -191,7 +193,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 						if (ball.intersects(bricks[i])) {
 							Rectangle2D r = bricks[i].createIntersection(ball);
 							hitForPaint = r;
-							System.out.println("intersects: " + r.getX() + " , " + r.getY());
+							//System.out.println("intersects: " + r.getX() + " , " + r.getY());
 							ball.impact(bricks[i]);
 							Game.addHit();
 							if (game.getDeadBricks() == 80) {
@@ -206,7 +208,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				ball.addX(movex);
 				ball.addY(movey);
 
-				System.out.println("ball point: " + ball.dballx + " , " + ball.dbally);
+				//System.out.println("ball point: " + ball.dballx + " , " + ball.dbally);
 
 				if (ball.x <= 0 || ball.x + ball.width >= 649) {
 					movex = -movex;
@@ -319,7 +321,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		if(ballMove)
 		{
 			Point locationOnPanel = e.getPoint();
-			System.out.println("Mouse location is " + locationOnPanel.getX());
+			//System.out.println("Mouse location is " + locationOnPanel.getX());
 			if (locationOnPanel.getX() <= 570) {
 				bat.x = (int) (locationOnPanel.getX());
 				repaint();

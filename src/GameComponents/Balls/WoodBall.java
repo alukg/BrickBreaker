@@ -5,10 +5,13 @@ import GameComponents.Bricks.IVisitor;
 import java.awt.*;
 
 /**
- * Created by guyal on 08/06/2016.
+ * Ball class from wood type.
  */
 public class WoodBall extends Ball{
 
+    /**
+     * Constructor.
+     */
     public WoodBall(double ballx, double bally){
         super(ballx,bally);
         color = Color.GREEN;

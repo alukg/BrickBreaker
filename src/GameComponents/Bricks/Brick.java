@@ -17,7 +17,7 @@ abstract public class Brick extends Rectangle implements IVisitor
 	//Constructors
 	protected Brick(int x, int y, int index)
 	{
-		super(x,y,45,15);
+		super(x,y,45,22);
 		this.index=index;
 	}
 

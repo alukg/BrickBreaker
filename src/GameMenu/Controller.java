@@ -142,7 +142,7 @@ public class Controller extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equals("Home")){
                 gameWindow.getBoard().thread.stop();
-                gameWindow.getBoard().thread = null;
+                gameWindow.getBoard().thread = null; //destroy the thread of the last game.
                 Game.deadBricks = 0;
                 Game.count = 0;
                 homeWindow.addLevelChoosePanel();
@@ -166,6 +166,8 @@ public class Controller extends JFrame {
      */
     public void newGame(int levelSlot){
         if(gameWindow!=null){ //remove the last game window.
+            gameWindow.getBoard().thread.stop();
+            gameWindow.getBoard().thread = null;
             getContentPane().remove(gameWindow);
         }
         gameWindow = new Game(controller,levelsDB.elementAt(levelSlot)); //create a new game.

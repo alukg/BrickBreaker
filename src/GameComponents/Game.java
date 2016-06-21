@@ -26,6 +26,11 @@ public class Game extends PanelModel implements ActionListener
 	public static int deadBricks = 0;
 	public static int count = 0;
 
+	/**
+	 * Constructor.
+	 * @param controller for the class use.
+	 * @param level the game data.
+     */
 	public Game(Controller controller, Level level)
 	{
 		this.controller = controller;
@@ -68,22 +73,23 @@ public class Game extends PanelModel implements ActionListener
 		this.board = board;
 		mainPanel.add(this.board);
 	}
-
 	public int getBestScore() {
 		return bestScore;
 	}
-
-	public void setBestScore(String bestScore)
+	public void setBestScore(Integer bestScore)
 	{
-		bestScore = bestScore;
+		this.bestScore = bestScore;
 		JLabel labelbestTime = new JLabel("Best time is : "+this.bestScore);
 		menuPanel.add(labelbestTime);
+	}
+	public int getDeadBricks(){
+		return deadBricks;
 	}
 
 	/**
 	 * The function operate the timer and stop it and operate undo function of the board if the undo button was pressed.
 	 * @parm  e saves the action event details.
-	 ***/
+	 **/
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == time)
@@ -110,17 +116,19 @@ public class Game extends PanelModel implements ActionListener
 		}
 	}
 
+	/**
+	 * add new hit for the hits counter.
+	 */
 	public static void addHit(){
 		count++;
 		labelHits.setText("Hits: "+count);
 	}
 
+	/**
+	 * add one for the dead brick counter.
+	 */
 	public static void addDeadBrick(){
 		deadBricks++;
-	}
-
-	public int getDeadBricks(){
-		return deadBricks;
 	}
 
 	/**
@@ -128,16 +136,12 @@ public class Game extends PanelModel implements ActionListener
 	 **/
 	public void finish()
 	{
-		board.thread.stop();
-		board.thread = null;
 		this.time.stop();
 		int levelScore = Math.max(0, 1500- count -2*(min*60+sec));
 		deadBricks = 0;
 		count = 0;
-
 		min = 0;
 		sec = 0;
-
 		this.controller.gameFinished(levelScore,bestScore);
 	}
 	
