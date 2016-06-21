@@ -8,41 +8,54 @@ import GameComponents.Game;
 import java.awt.geom.Rectangle2D;
 
 /**
- * Created by yaniv on 08/06/2016.
+ *  The class that represent an water brick
  */
 public class WaterBrick extends Brick
 {
+    //Constructor
+
     public WaterBrick(int x, int y, int index)
     {
         super(x,y,index);
         image = Board.waterImage;
     }
 
-    //Direction doesn't changed
-    //brick disappear
+    /**
+     * The function kill the brick.
+     *
+     * @param  elementalBall  saves the ball that hit the brick
+     */
     public void visit(ElementalBall elementalBall)
     {
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-    //Ball disappear
-    //brick doesn't disappear
+    /**
+     * The function disappears the ball and takes the ball and bat to their initial point.
+     *
+     * @param  fireBall  saves the ball that hit the brick
+     */
     public void visit(FireBall fireBall )
     {
         Board.ballMove = false;
         Board.ballDisappear = true;
         Board.timerForBallDown.start();
     }
-
-    //Direction changed
-    //brick doesn't disappear
+    /**
+     * The function change the ball direction.
+     *
+     * @param  waterBall  saves the ball that hit the brick
+     */
     public void visit(WaterBall waterBall)
     {
         Rectangle2D hitPoint = this.createIntersection(waterBall);
         ChangeDirection(hitPoint,this);
     }
-    //Direction change
-    //brick disappear
+    /**
+     * The function change the ball direction and kill the brick.
+     *
+     * @param  woodBall  saves the ball that hit the brick
+     */
     public void visit(WoodBall woodBall)
     {
         Rectangle2D hitPoint = this.createIntersection(woodBall);
@@ -50,8 +63,11 @@ public class WaterBrick extends Brick
         Board.bricks[this.index] = null;
         Game.addDeadBrick();
     }
-    //Direction doesn't change
-    //brick disappear
+    /**
+     * The function kill the brick.
+     *
+     * @param  electricBall  saves the ball that hit the brick
+     */
     public void visit(ElectricBall electricBall)
     {
         Board.bricks[this.index] = null;

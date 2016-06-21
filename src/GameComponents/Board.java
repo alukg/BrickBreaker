@@ -131,7 +131,11 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		thread.start();
 	}
 
-	private void chooseRandomDirection() {
+	/**
+	 * The function that randomize the ball direction.
+	 */
+	private void chooseRandomDirection()
+	{
 		Random rand = new Random();
 		int cases = rand.nextInt(8)+1;
 
@@ -159,7 +163,13 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		}
 	}
 
-	public void paint (Graphics g){
+	/**
+	 * The function draws the board.
+	 *
+	 * @param  g  saves the base graphics
+	 */
+	public void paint (Graphics g)
+	{
 		g.drawImage(background, 0, 0, null);
 		g.setColor(ball.getColor());
 		g.fillOval(ball.x, ball.y, ball.width, ball.height);
@@ -176,13 +186,15 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 			}
 		}
 
-		if(hitForPaint != null){
-			//System.out.println("paint point");
+		/*if(hitForPaint != null){
+			System.out.println("paint point");
 			g.setColor(Color.MAGENTA);
 			g.fillOval((int)hitForPaint.getX(), (int)hitForPaint.getY(), 5, 5);
-		}
+		}*/
 	}
-
+	/**
+	 * The function that runs the brick.
+	 */
 	public void run()
 	{
 		while (!gameFinished) {
@@ -262,15 +274,18 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		game.finish();
 	}
 
-	@Override
+	/**
+	 * The function change the ball's type correspondingly to the key that was pressed.
+	 * @parm  e saves the key event details.
+	 ***/
 	public void keyPressed(KeyEvent event)
 	{
-		System.out.println("Key Pressed");
+		//System.out.println("Key Pressed");
 		int keyCode = event.getKeyCode();
-		if(keyCode == KeyEvent.VK_SPACE)
+		/*if(keyCode == KeyEvent.VK_SPACE)
 		{
 			ballMove = true;
-		}
+		}*/
 		if(keyCode == KeyEvent.VK_1)
 		{
 			ball = new FireBall(ball.dballx,ball.dbally);
@@ -313,7 +328,10 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		// TODO Auto-generated method stub
 	}
 
-	@Override
+	/**
+	 * The function moves the bat in correspondingly to the mouse x point.
+	 * @parm  e saves the mouse event details.
+	 ***/
 	public void mouseMoved(MouseEvent e)
 	{
 		e.getComponent().setFocusable(true);
@@ -331,7 +349,10 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		}
 	}
 
-	@Override
+	/**
+	 * The function moves the ball and the bat to their initial location.
+	 * @parm  e saves the action event details.
+	 ***/
 	public void actionPerformed(ActionEvent e)
 	{
 		ball.x = BALL_START_X;
@@ -347,10 +368,12 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		repaint();
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e)
+	/**
+	 * The function start the ball movement after mouse click.
+	 * @parm  e saves the mouse event details.
+	 ***/	public void mouseClicked(MouseEvent e)
 	{
-		System.out.println("Mouse clicked");
+		//System.out.println("Mouse clicked");
 		//int keyCode = event.getKeyCode();
 		//if(keyCode == KeyEvent.VK_SPACE)
 		//{

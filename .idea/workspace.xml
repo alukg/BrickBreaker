@@ -2,27 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a05b723d-a9e6-452f-b3ae-3a841a07f602" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/Brick.psd" afterPath="$PROJECT_DIR$/design/Bricks/Brick.psd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/electricBrick.jpg" afterPath="$PROJECT_DIR$/design/Bricks/electricBrick.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/fireBrick.jpg" afterPath="$PROJECT_DIR$/design/Bricks/fireBrick.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/plusBrick.jpg" afterPath="$PROJECT_DIR$/design/Bricks/plusBrick.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/rectangleBrick.jpg" afterPath="$PROJECT_DIR$/design/Bricks/rectangleBrick.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/regularBrick.jpg" afterPath="$PROJECT_DIR$/design/Bricks/regularBrick.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/waterBrick.jpg" afterPath="$PROJECT_DIR$/design/Bricks/waterBrick.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/woodBrick.jpg" afterPath="$PROJECT_DIR$/design/Bricks/woodBrick.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/Bricks/xBrick.jpg" afterPath="$PROJECT_DIR$/design/Bricks/xBrick.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Balls/Ball.java" afterPath="$PROJECT_DIR$/src/GameComponents/Balls/Ball.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Balls/ElectricBall.java" afterPath="$PROJECT_DIR$/src/GameComponents/Balls/ElectricBall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Balls/ElementalBall.java" afterPath="$PROJECT_DIR$/src/GameComponents/Balls/ElementalBall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Balls/FireBall.java" afterPath="$PROJECT_DIR$/src/GameComponents/Balls/FireBall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Balls/IVisitable.java" afterPath="$PROJECT_DIR$/src/GameComponents/Balls/IVisitable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Balls/WaterBall.java" afterPath="$PROJECT_DIR$/src/GameComponents/Balls/WaterBall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Balls/WoodBall.java" afterPath="$PROJECT_DIR$/src/GameComponents/Balls/WoodBall.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Board.java" afterPath="$PROJECT_DIR$/src/GameComponents/Board.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/Brick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/Brick.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Game.java" afterPath="$PROJECT_DIR$/src/GameComponents/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameMenu/Controller.java" afterPath="$PROJECT_DIR$/src/GameMenu/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/ElectricBrick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/ElectricBrick.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/FireBrick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/FireBrick.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/PlusBrick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/PlusBrick.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/RectangleBrick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/RectangleBrick.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/RegularBrick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/RegularBrick.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/WaterBrick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/WaterBrick.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/WoodBrick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/WoodBrick.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Bricks/XBrick.java" afterPath="$PROJECT_DIR$/src/GameComponents/Bricks/XBrick.java" />
     </list>
     <ignored path="BrickBreaker.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,21 +58,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameMenu/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28478965">
+            <state vertical-scroll-proportion="-3.0344827">
               <caret line="168" column="41" selection-start-line="168" selection-start-column="41" selection-end-line="168" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Board.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameComponents/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="194" column="41" selection-start-line="194" selection-start-column="41" selection-end-line="194" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.9385113">
+              <caret line="187" column="0" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -149,10 +138,10 @@
         <option value="$PROJECT_DIR$/src/GameComponents/Balls/ElementalBall.java" />
         <option value="$PROJECT_DIR$/src/GameComponents/Balls/ElectricBall.java" />
         <option value="$PROJECT_DIR$/src/GameComponents/Balls/IVisitable.java" />
-        <option value="$PROJECT_DIR$/src/GameComponents/Board.java" />
         <option value="$PROJECT_DIR$/src/GameComponents/Bricks/Brick.java" />
         <option value="$PROJECT_DIR$/src/GameComponents/Game.java" />
         <option value="$PROJECT_DIR$/src/GameMenu/Controller.java" />
+        <option value="$PROJECT_DIR$/src/GameComponents/Board.java" />
       </list>
     </option>
   </component>
@@ -689,7 +678,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -702,7 +691,8 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33223686" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21010248" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21010248" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -712,7 +702,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -766,7 +755,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/GameComponents/Board.java</url>
-          <line>199</line>
+          <line>217</line>
           <properties />
           <option name="timeStamp" value="13" />
         </line-breakpoint>
@@ -1175,21 +1164,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameComponents/Board.java">
+    <entry file="file://$PROJECT_DIR$/src/GameMenu/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="194" column="41" selection-start-line="194" selection-start-column="41" selection-end-line="194" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-3.0344827">
+          <caret line="168" column="41" selection-start-line="168" selection-start-column="41" selection-end-line="168" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameMenu/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/GameComponents/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28478965">
-          <caret line="168" column="41" selection-start-line="168" selection-start-column="41" selection-end-line="168" selection-end-column="41" />
-          <folding />
+        <state vertical-scroll-proportion="0.9385113">
+          <caret line="187" column="0" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
