@@ -163,15 +163,19 @@ public class Controller extends JFrame {
      * @param levelSlot the level number to start.
      */
     public void newGame(int levelSlot){
+        Thread oldLevelThread = null;
         if(gameWindow!=null){ //remove the last game window.
-            gameWindow.getBoard().thread.stop();
-            gameWindow.getBoard().thread = null;
+            oldLevelThread = gameWindow.getBoard().thread;
             getContentPane().remove(gameWindow);
         }
         gameWindow = new Game(controller,levelsDB.elementAt(levelSlot)); //create a new game.
         openLevel = levelSlot;
         getContentPane().add(gameWindow, "Game");
         cards.show(getContentPane(), "Game"); //show the game window.
+        if(oldLevelThread != null){
+            oldLevelThread.stop();
+            oldLevelThread = null;
+        }
     }
 
 }
