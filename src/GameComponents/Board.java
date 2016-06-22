@@ -352,7 +352,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	/**
 	 * The function start the ball movement after mouse click.
 	 * @parm  e saves the mouse event details.
-	 ***/	public void mouseClicked(MouseEvent e)
+	 ***/
+	public void mouseClicked(MouseEvent e)
 	{
 		ballMove = true;
 	}
