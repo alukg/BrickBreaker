@@ -1,5 +1,6 @@
 package GameMenu;
 
+import GameComponents.Board;
 import GameComponents.Game;
 import GameComponents.Level;
 
@@ -140,7 +141,13 @@ public class Controller extends JFrame {
      */
     public class menuPress implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if(e.getActionCommand().equals("Home")){
+            if(e.getActionCommand().equals("Home"))
+            {
+
+                //gameWindow.getBoard().thr
+                Board.thread.stop();
+                gameWindow.getBoard().actionPerformed(e);
+                gameWindow = null;
                 Game.deadBricks = 0;
                 Game.count = 0;
                 homeWindow.addLevelChoosePanel();
@@ -164,8 +171,8 @@ public class Controller extends JFrame {
      */
     public void newGame(int levelSlot){
         if(gameWindow!=null){ //remove the last game window.
-            gameWindow.getBoard().thread.interrupt();
-            gameWindow.getBoard().thread = null;
+            //gameWindow.getBoard().thread.interrupt();
+           // gameWindow.getBoard().thread = null;
             getContentPane().remove(gameWindow);
         }
         gameWindow = new Game(controller,levelsDB.elementAt(levelSlot)); //create a new game.

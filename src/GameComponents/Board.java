@@ -124,9 +124,20 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 		this.addMouseListener(this);
 		timerForBallDown = new Timer(3000, this);
 
+		if(thread!=null){
+			thread=null;
+		}
 		thread = new Thread(this);
 		thread.start();
+		//new Thread(this).start();
 	}
+
+
+	//public static void main(String[] args)
+	//{
+	//}
+
+
 
 	/**
 	 * The function that randomize the ball direction.
@@ -252,7 +263,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 				}
 			}
 			try {
-				thread.sleep(2);
+				Thread.currentThread().sleep(2);
 			}
 			catch (Exception e)
 			{
@@ -337,16 +348,21 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	 ***/
 	public void actionPerformed(ActionEvent e)
 	{
-		ball.x = BALL_START_X;
-		ball.dballx = BALL_START_X;
-		ball.y = BALL_START_Y;
-		ball.dbally = BALL_START_Y;
-		bat.x =  BAT_START_X;
-		bat.y = BAT_START_Y;
-		ballDisappear = false;
-		chooseRandomDirection();
-		timerForBallDown.stop();
-		repaint();
+		//if(e.getActionCommand().equals("Home")) {
+            //Thread.currentThread().interrupt();
+        //}
+		//else {
+			ball.x = BALL_START_X;
+			ball.dballx = BALL_START_X;
+			ball.y = BALL_START_Y;
+			ball.dbally = BALL_START_Y;
+			bat.x = BAT_START_X;
+			bat.y = BAT_START_Y;
+			ballDisappear = false;
+			chooseRandomDirection();
+			timerForBallDown.stop();
+			repaint();
+		//}
 	}
 
 	/**
@@ -355,7 +371,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, KeyL
 	 ***/
 	public void mouseClicked(MouseEvent e)
 	{
+		System.out.println("MouseClicked");
 		ballMove = true;
+		//run();
 	}
 
 	@Override
